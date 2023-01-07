@@ -3,8 +3,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {    Button, Text} from 'react-native-elements'
 import { Alert, FlatList, StyleSheet, TextInput} from 'react-native';
 
-import SetItem from '../components/SetItem';
-import SetListItem from '../components/SetListItem';
+import SetItem from '../Set/SetItem';
+import SetListItem from '../Set/SetListItem';
 
 const ExerciseForm = ({onSubmit}) => {
     const [setList, setSetList] = useState([]);

@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text} from 'react-native-elements'
-import { Alert, FlatList, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import ExerciseForm from '../components/ExerciseForm';
+import ExerciseForm from '../components/Exercise/ExerciseForm';
 
 const AddExerciseScreen = ({route}) => {
     const navigation = useNavigation();
