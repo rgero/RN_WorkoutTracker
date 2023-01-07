@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native'
-import {Text} from 'react-native-elements';
+import React, { useState } from "react";
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
+import { Text } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
 const SetItem = ({onSubmit}) => {

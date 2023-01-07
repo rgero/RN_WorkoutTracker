@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Text} from 'react-native-elements'
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Text } from 'react-native-elements'
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const SetListItem = ({reps, weight, id, deleteItem}) => {

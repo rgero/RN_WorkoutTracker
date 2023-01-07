@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {    Button, Text} from 'react-native-elements'
+import { Button } from 'react-native-elements'
 import { Alert, FlatList, StyleSheet, TextInput} from 'react-native';
 
 import SetItem from '../Set/SetItem';

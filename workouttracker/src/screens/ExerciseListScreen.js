@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Text} from 'react-native-elements'
-import { Alert, FlatList, StyleSheet} from 'react-native';
+import { Button, Text } from 'react-native-elements'
+import { Alert, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import ExerciseDisplayItem from '../components/Exercise/ExerciseDisplayItem';
 import Spacer from '../components/Spacer';
-import {dummyExercises} from '../dummyData';
+import { dummyExercises } from '../dummyData';
 
 const ExerciseListScreen = () => {
     const navigation = useNavigation();

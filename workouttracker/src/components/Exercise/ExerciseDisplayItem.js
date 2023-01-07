@@ -1,6 +1,6 @@
 import React from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Text} from 'react-native-elements'
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Text } from 'react-native-elements'
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const ExerciseDisplayItem = ({name, muscleGroup, notes, setList, id, deleteItem}) => {
