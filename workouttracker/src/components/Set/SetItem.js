@@ -39,7 +39,7 @@ const SetItem = ({onSubmit}) => {
             </View>
             { error ? (
                 <View style={styles.errorField}>
-                    <Text h3 style={styles.error}>{error}</Text>
+                    <Text h4 style={styles.error}>{error}</Text>
                 </View>
             ) : ( 
                 null
@@ -52,12 +52,15 @@ const styles = StyleSheet.create({
     inputField: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
-        paddingHorizontal: 20
+        justifyContent: "space-around",
     },
     numericInput: {
         fontSize: 20,
-        paddingVertical: 5
+        width: "45%",
+        textAlign: "center",
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: "grey"
     },
     addButton: {
         justifyContent: "center"
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
         color: "red"
     },
     Form: {
-        padding: 10
+        paddingBottom: 20
     }
 })
 
