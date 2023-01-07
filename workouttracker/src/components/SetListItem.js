@@ -3,10 +3,10 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-elements'
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const ExerciseListItem = ({name, muscleGroup, id, deleteItem}) => {
+const SetListItem = ({reps, weight, id, deleteItem}) => {
     return (
         <View style={styles.item}>
-            <Text h2>{name} - {muscleGroup}</Text>
+            <Text style={styles.name}>{reps} - {weight}</Text>
             <TouchableOpacity onPress={()=> {deleteItem(id)}}>
                 <FontAwesome5 name="trash" size={30} color="black" style={styles.trash}/>
             </TouchableOpacity>
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ExerciseListItem
+export default SetListItem

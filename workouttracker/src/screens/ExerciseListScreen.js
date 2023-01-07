@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text} from 'react-native-elements'
+import { Button, Text} from 'react-native-elements'
 import { Alert, FlatList, StyleSheet} from 'react-native';
 
-import ExerciseItem from '../components/ExerciseItem';
+import { useNavigation } from '@react-navigation/native';
 import ExerciseListItem from '../components/ExerciseListItem';
 
-const ExerciseScreen = () => {
+const ExerciseListScreen = () => {
+    const navigation = useNavigation();
     const [exerciseList, setExerciseList] = useState([]);
 
+    // This should interact with a database later, but for now we're just going to store them
+    // in the state, and handle it per session
     const deleteHandler = (targetIndex) => {
         Alert.alert('Delete', "Are you sure you wish to delete this item?", [
             {
@@ -30,14 +33,14 @@ const ExerciseScreen = () => {
         ])
     }
 
-    const addHandler = ({reps, weight}) => {
-        setExerciseList( [...exerciseList, {reps, weight}]);
+    const addHandler = (newExercise) => {
+        setExerciseList( [...exerciseList, newExercise]);
     }
 
     return (
-        <SafeAreaView forceInset={{ top: 'always' }} style={styles.safeArea}>
+        <SafeAreaView forceInset={{ top: 'always' }}>
             <Text h2>Track your exercise</Text>
-            <ExerciseItem onSubmit={addHandler}/>
+            <Button title="Add an Exercise" onPress={()=> {navigation.navigate("AddExerciseScreen", {onSubmit: addHandler})}} />
             <FlatList data={exerciseList}
                 extraData={exerciseList}
                 keyExtractor={(exercise) => {
@@ -47,16 +50,13 @@ const ExerciseScreen = () => {
                 showsHorizontalScrollIndicator = {false}
                 renderItem={
                     ({item, index}) => {
-                        return <ExerciseListItem reps={item.reps} weight={item.weight} id={index} deleteItem={deleteHandler}/>
+                        return <ExerciseListItem name={item.name} muscleGroup={item.muscleGroup} deleteItem={deleteHandler}/>
                     }
                 }
-                style={styles.list}
             />
         </SafeAreaView>
     )
+
 }
 
-const styles = StyleSheet.create({
-})
-
-export default ExerciseScreen
+export default ExerciseListScreen

@@ -3,7 +3,7 @@ import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native'
 import {Text} from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
-const ExerciseItem = ({onSubmit}) => {
+const SetItem = ({onSubmit}) => {
     const [reps, setReps] = useState("")
     const [weight, setWeight] = useState("")
     const [error, setError] = useState("")
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ExerciseItem
+export default SetItem
