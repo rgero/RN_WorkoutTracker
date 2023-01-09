@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     numericInput: {
         fontSize: 20,
-        width: "45%",
+        width: "40%",
         textAlign: "center",
         borderWidth: 1,
         borderRadius: 10,

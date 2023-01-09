@@ -48,7 +48,7 @@ const ExerciseForm = ({onSubmit}) => {
     }
 
     return (
-        <SafeAreaView forceInset={{ top: 'always' }} style={styles.safeArea}>
+        <View style={styles.safeArea}>
             <View style={styles.inputContainer}>
                 <Text h4>Name</Text>
                 <TextInput value={exerciseName} placeholder="Exercise Name" 
@@ -88,7 +88,7 @@ const ExerciseForm = ({onSubmit}) => {
                 />
             </View>
             <Button title="Submit Exercise" onPress={handleSubmit} />
-        </SafeAreaView>
+        </View>
     )
 }
 

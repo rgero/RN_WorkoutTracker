@@ -13,7 +13,7 @@ export default () => {
             <Stack.Navigator
                 screenOptions={{
                     contentStyle: {
-                        backgroundColor: "#EEE"
+                        backgroundColor: "#c9c1a9"
                     }
                 }}
             >
