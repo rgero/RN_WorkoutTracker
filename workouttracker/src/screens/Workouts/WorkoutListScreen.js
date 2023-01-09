@@ -4,13 +4,13 @@ import { Button, Text } from 'react-native-elements'
 import { Alert, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import ExerciseDisplayItem from '../components/Exercise/ExerciseDisplayItem';
-import Spacer from '../components/Spacer';
-import { dummyExercises } from '../dummyData';
+import WorkoutDisplayItem from '../../components/Workout/WorkoutDisplayItem';
+import Spacer from '../../components/Spacer';
+import { dummyWorkouts } from '../../dummyData';
 
-const ExerciseListScreen = () => {
+const WorkoutListScreen = () => {
     const navigation = useNavigation();
-    const [exerciseList, setExerciseList] = useState(dummyExercises);
+    const [workoutList, setWorkoutList] = useState(dummyWorkouts);
 
     // This should interact with a database later, but for now we're just going to store them
     // in the state, and handle it per session
@@ -26,30 +26,30 @@ const ExerciseListScreen = () => {
                 text: "Ok",
                 onPress: () => {
                     console.log(`Delete Pressed for index ${targetIndex}`)
-                    setExerciseList( (prevExerciseList) => {
-                        prevExerciseList.splice(targetIndex, 1);
-                        return [...prevExerciseList];
+                    setWorkoutList( (prevWorkoutList) => {
+                        prevWorkoutList.splice(targetIndex, 1);
+                        return [...prevWorkoutList];
                     });
                 }
             }
         ])
     }
 
-    const addHandler = (newExercise) => {
-        setExerciseList( [...exerciseList, newExercise]);
+    const addHandler = (newWorkout) => {
+        setWorkoutList( [...workoutList, newWorkoutList]);
     }
 
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
-            <Text h2>Track your exercise</Text>
+            <Text h2>Track your Workout!</Text>
             <Spacer>
-                <Button title="Add an Exercise" onPress={()=> {navigation.navigate("AddExerciseScreen", {onSubmit: addHandler})}} />
+                <Button title="Add a Workout" onPress={()=> {navigation.navigate("AddWorkoutScreen", {onSubmit: addHandler})}} />
             </Spacer>
             <Spacer>
-                <FlatList data={exerciseList}
-                    extraData={exerciseList}
-                    keyExtractor={(exercise) => {
-                        return exerciseList.findIndex((testItem) => testItem == exercise)
+                <FlatList data={workoutList}
+                    extraData={workoutList}
+                    keyExtractor={(workout) => {
+                        return workoutList.findIndex((testItem) => testItem == workout)
                     }}
                     horizontal = {false}
                     showsHorizontalScrollIndicator = {false}
@@ -57,7 +57,7 @@ const ExerciseListScreen = () => {
                         ({item, index}) => {
                             return (
                                 <Spacer>
-                                    <ExerciseDisplayItem name={item.name} muscleGroup={item.muscleGroup} setList={item.setList} deleteItem={deleteHandler}/>
+                                    <WorkoutDisplayItem date={item.date} deleteItem={deleteHandler}/>
                                 </Spacer>
                             )
                         }
@@ -69,4 +69,4 @@ const ExerciseListScreen = () => {
 
 }
 
-export default ExerciseListScreen
+export default WorkoutListScreen

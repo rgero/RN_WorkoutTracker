@@ -45,3 +45,20 @@ export const dummyExercises = [
         ]
     },
 ]
+
+export const dummyWorkouts = [
+    {
+        date: "2023-01-07",
+        notes: "",
+        startTime: "",
+        endTime: "",
+        exercises: dummyExercises
+    },
+    {
+        date: "2023-01-08",
+        notes: "",
+        startTime: "",
+        endTime: "",
+        exercises: dummyExercises
+    }
+]
