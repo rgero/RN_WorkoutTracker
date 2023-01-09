@@ -57,7 +57,7 @@ const WorkoutListScreen = () => {
                         ({item, index}) => {
                             return (
                                 <Spacer>
-                                    <WorkoutDisplayItem date={item.date} deleteItem={deleteHandler}/>
+                                    <WorkoutDisplayItem date={item.date} id={index} deleteItem={deleteHandler}/>
                                 </Spacer>
                             )
                         }
