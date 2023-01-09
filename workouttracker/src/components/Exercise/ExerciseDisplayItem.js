@@ -9,19 +9,30 @@ const ExerciseDisplayItem = ({name, muscleGroup, notes, setList, id, deleteItem}
             <View style={styles.exerciseDisplay}>
                 <Text h4>{name} - {muscleGroup}</Text>
                 <Text>{notes}</Text>
-                <FlatList data={setList}
-                    extraData={setList}
-                    keyExtractor={(set) => {
-                        return setList.findIndex((testItem) => testItem == set)
-                    }}
-                    horizontal = {false}
-                    showsHorizontalScrollIndicator = {false}
-                    renderItem={
-                        ({item}) => {
-                            return <Text>{item.reps} - {item.weight}</Text>
+                <View>
+                    <View style={styles.setHeader}>
+                        <Text h4>Reps</Text>
+                        <Text h4>Weight</Text>
+                    </View>
+                    <FlatList data={setList}
+                        extraData={setList}
+                        keyExtractor={(set) => {
+                            return setList.findIndex((testItem) => testItem == set)
+                        }}
+                        horizontal = {false}
+                        showsHorizontalScrollIndicator = {false}
+                        renderItem={
+                            ({item}) => {
+                                return (
+                                    <View style={styles.setItem}>
+                                        <Text>{item.reps}</Text>
+                                        <Text>{item.weight}</Text>
+                                    </View>
+                                )
+                            }
                         }
-                    }
-                />
+                    />
+                </View>
             </View>
             <TouchableOpacity onPress={()=> {deleteItem(id)}}>
                 <FontAwesome5 name="trash" size={30} color="black" style={styles.trash}/>
@@ -52,7 +63,20 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: 'center',
         flexDirection: "column"
-    }
+    },
+    setHeader: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around"
+    },
+    setItem: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        borderWidth: 1,
+        borderColor: "gray",
+        textAlign: "center"
+    },
 })
 
 export default ExerciseDisplayItem
