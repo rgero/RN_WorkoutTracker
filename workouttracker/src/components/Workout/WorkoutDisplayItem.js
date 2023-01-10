@@ -1,16 +1,18 @@
 import React from 'react';
 import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-const WorkoutDisplayItem = ({date, id, deleteItem}) => {
+const WorkoutDisplayItem = ({workout, deleteItem}) => {
+    const navigation = useNavigation();
 
     const displayWorkout = () => {
-        console.log(date);
+        navigation.navigate("WorkoutDetails", {workout});
     }
 
     return (
         <TouchableOpacity onPress={displayWorkout} style={styles.displayItem}>
-            <Text>{date}</Text>
+            <Text>{workout.date}</Text>
             <TouchableOpacity onPress={()=> {deleteItem(id)}}>
                 <FontAwesome5 name="trash" size={30} color="black" style={styles.trash}/>
             </TouchableOpacity>

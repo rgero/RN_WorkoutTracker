@@ -36,7 +36,7 @@ const WorkoutListScreen = () => {
     }
 
     const addHandler = (newWorkout) => {
-        setWorkoutList( [...workoutList, newWorkoutList]);
+        setWorkoutList( [...workoutList, newWorkout]);
     }
 
     return (
@@ -57,7 +57,7 @@ const WorkoutListScreen = () => {
                         ({item, index}) => {
                             return (
                                 <Spacer>
-                                    <WorkoutDisplayItem date={item.date} id={index} deleteItem={deleteHandler}/>
+                                    <WorkoutDisplayItem workout={item} deleteItem={deleteHandler}/>
                                 </Spacer>
                             )
                         }

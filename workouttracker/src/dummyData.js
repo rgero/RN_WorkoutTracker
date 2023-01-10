@@ -60,5 +60,12 @@ export const dummyWorkouts = [
         startTime: "",
         endTime: "",
         exercises: dummyExercises
+    },
+    {
+        date: "2023-01-09",
+        notes: "",
+        startTime: "",
+        endTime: "",
+        exercises: []
     }
 ]
