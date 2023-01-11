@@ -6,7 +6,12 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 const AddWorkoutScreen = () => {
     return (
         <View>
-            <Text>Boiler Screen</Text>
+            <Text>Add Workout</Text>
+            <Text>Date</Text>
+            <Text>Start Time</Text>
+            <Text>End Time</Text>
+            <Text>Notes</Text>
+            <Text>Exercise List (where you can add stuff)</Text>
         </View>
     )
 }
