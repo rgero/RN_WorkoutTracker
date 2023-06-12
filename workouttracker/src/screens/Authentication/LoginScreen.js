@@ -2,7 +2,7 @@ import React, {useEffect, useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import {Context as AuthContext} from '../../context/AuthContext';
-import AuthenticationForm from '../../components/AuthenticationForm';
+import LoginForm from '../../components/Authentication/LoginForm';
 import NavLink from '../../components/NavLink';
 
 const LoginScreen = ({navigation}) => {
@@ -18,8 +18,8 @@ const LoginScreen = ({navigation}) => {
 
     return (
         <View style={styles.signIn}>
-            <AuthenticationForm 
-                headerText="Sign In to Tracker!" 
+            <LoginForm 
+                headerText="Login to the Workout Tracker!" 
                 buttonText="Sign In!" 
                 errorMessage={state.errorMessage} 
                 onSubmit={({email, password})=> signIn({email, password})}

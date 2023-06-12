@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {Button, Input, Text} from 'react-native-elements';
 
-import Spacer from './Spacer'
+import Spacer from '../Spacer'
 
 
-const AuthenticationForm = ({headerText, errorMessage, buttonText, onSubmit}) => {
+const LoginForm = ({headerText, errorMessage, buttonText, onSubmit}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -41,4 +41,4 @@ const AuthenticationForm = ({headerText, errorMessage, buttonText, onSubmit}) =>
 const styles = StyleSheet.create({
 })
 
-export default AuthenticationForm
+export default LoginForm

@@ -37,16 +37,16 @@ const clearErrorMessage = dispatch => () => {
 }
 
 const signUp = dispatch => {
-    return async ({ email, password }) => {
+    return async ({ email, displayName, password }) => {
         try {
-            const response = await workoutAPI.post('/signup', { email, password });
+            const response = await workoutAPI.post('/signup', { email, displayName, password });
             
             // Storing the Token
             await AsyncStorage.setItem('token', response.data.token);
             dispatch({type: "storeToken", payload: response.data.token})
 
             // Navigate to Main Flow
-            navigate("MainFlow", {screen: "TrackFlowList"})
+            navigate("MainFlow", {screen: "WorkoutListScreen"})
         } catch (err) {
             console.log(err.message);
             dispatch({ type: 'addError', payload: "Something went wrong"})
@@ -64,7 +64,7 @@ const signIn = (dispatch) => {
             dispatch({type: "storeToken", payload: response.data.token})
 
             // Navigate to Main Flow
-            navigate("MainFlow", {screen: "TrackFlowList"})
+            navigate("MainFlow", {screen: "WorkoutListScreen"})
         } catch (err) {
             console.log(err.message);
             dispatch({ type: 'addError', payload: "Something went wrong"})
