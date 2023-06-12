@@ -7,8 +7,8 @@ const LoginFlowStack = createNativeStackNavigator();
 export default LoginFlow = () => {
   return (
         <LoginFlowStack.Navigator>
-            <LoginFlowStack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false}} /> 
-            <LoginFlowStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} /> 
+          <LoginFlowStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} /> 
+          <LoginFlowStack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false}} /> 
         </LoginFlowStack.Navigator>
   )
 }

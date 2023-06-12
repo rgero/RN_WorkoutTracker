@@ -1,36 +1,26 @@
-
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import { Ionicons } from '@expo/vector-icons';
-
+import React from 'react';
+import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 import WorkoutListScreen from '../screens/Workouts/WorkoutListScreen';
 import AddWorkoutScreen from '../screens/Workouts/AddWorkoutScreen';
 
-const MainFlow = createBottomTabNavigator();
-export default MainFlowTabs = () => {
+import {Context as AuthContext} from '../context/AuthContext';
+
+export default DrawerNavigator = () => {
+  const {signOut} = React.useContext(AuthContext);
+  
+  const CustomDrawerContent = (props) => {
+    return (
+      <DrawerContentScrollView {...props}>
+          <DrawerItemList {...props} />
+          <DrawerItem label="Logout" onPress={() => signOut()} />
+      </DrawerContentScrollView>
+    );
+  }
+  const Drawer = createDrawerNavigator();
   return (
-    <MainFlow.Navigator>
-      <MainFlow.Screen name="WorkoutListScreen" 
-        component={WorkoutListScreen} 
-        options={
-          {
-            title: "Workouts",
-            tabBarIcon: ({color, size}) => {
-              <Ionicons name="add-circle" size={size} color={color} />
-            }
-          }
-        }
-      />
-      <MainFlow.Screen name="AddWorkoutScreen" 
-        component={AddWorkoutScreen} 
-        options={{ 
-          headerShown: false, 
-          title: "Create Workout",
-          tabBarIcon: ({color, size}) => {
-            <Ionicons name="add-circle" size={size} color={color} />
-          }
-        }}/>
-      {/* <MainFlow.Screen name="Account" component={AccountScreen} options={{ headerShown: false}}/> */}
-    </MainFlow.Navigator>
+    <Drawer.Navigator drawerContent={props=> <CustomDrawerContent {...props}/>} defaultStatus="closed">
+      <Drawer.Screen name="View Workouts" component={WorkoutListScreen}/>
+      <Drawer.Screen name="Add Workouts" component={AddWorkoutScreen}/>
+    </Drawer.Navigator>
   )
 }
