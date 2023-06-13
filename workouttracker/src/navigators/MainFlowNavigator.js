@@ -19,7 +19,7 @@ export default DrawerNavigator = () => {
   
   const CustomDrawerContent = (props) => {
     return (
-      <DrawerContentScrollView {...props}>
+      <DrawerContentScrollView {...props} style={styles.drawer}>
           { state.displayName ? (
             <View style={styles.displayName}>
               <DrawerItem label={state.displayName} />
@@ -42,5 +42,8 @@ export default DrawerNavigator = () => {
 
 const styles = StyleSheet.create({
   displayName: {
+  },
+  drawer: {
+    marginLeft: 10
   }
 })
