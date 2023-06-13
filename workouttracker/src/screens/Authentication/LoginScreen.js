@@ -1,9 +1,12 @@
 import React, {useEffect, useContext} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {ImageBackground, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import {Context as AuthContext} from '../../context/AuthContext';
-import LoginForm from '../../components/Authentication/LoginForm';
 import NavLink from '../../components/NavLink';
+import LoginForm from '../../components/Authentication/LoginForm';
+
+const backgroundImage = require('../../images/dumbbells.jpg')
+
 
 const LoginScreen = ({navigation}) => {
     const {state, signIn, clearErrorMessage} = useContext(AuthContext);
@@ -17,18 +20,22 @@ const LoginScreen = ({navigation}) => {
       }, [navigation]);
 
     return (
-        <View style={styles.signIn}>
-            <LoginForm 
-                headerText="Login to the Workout Tracker!" 
-                buttonText="Sign In!" 
-                errorMessage={state.errorMessage} 
-                onSubmit={({email, password})=> signIn({email, password})}
-            />
-            <NavLink
-                routeName="Signup"
-                text="Don't have an account? Sign Up for one"
-            />
-        </View>
+        <ImageBackground 
+            style={[styles.background, styles.container]} 
+            source={backgroundImage}
+            resizeMode="cover"
+        >
+            <View style={styles.container} />
+            <LoginForm onSubmit={({email, password})=> signIn({email, password})}/>
+            <View style={styles.container} />
+            <View style={styles.wrapper}>
+                <NavLink
+                    routeName="Signup"
+                    text="Create New Account"
+                />
+            </View>
+            <View style={styles.smallOffset}/>
+        </ImageBackground>
     )
 }
 
@@ -39,10 +46,18 @@ LoginScreen.navigationOptions = () => {
 };
 
 const styles = StyleSheet.create({
-    signIn: {
+    background: {
+        width: null,
+        height: null
+    },
+    container: {
         flex: 1,
-        justifyContent: "center",
-        marginBottom: 200
+    },
+    wrapper: {
+        paddingHorizontal: 15,
+    },
+    smallOffset: {
+        height: 60
     }
 })
 export default LoginScreen

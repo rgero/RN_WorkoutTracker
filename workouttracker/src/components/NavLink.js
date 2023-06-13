@@ -1,25 +1,32 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-
-import Spacer from './Spacer';
 
 const NavLink = ({ text, routeName }) => {
     const navigation = useNavigation();
     return (
-      <TouchableOpacity onPress={() => navigation.navigate(routeName)}>
-        <Spacer>
-          <Text style={styles.link}>{text}</Text>
-        </Spacer>
+      <TouchableOpacity activeOpacity={.5} onPress={() => navigation.navigate(routeName)}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>{text}</Text>
+        </View>
       </TouchableOpacity>
     );
-  };
-  
-  const styles = StyleSheet.create({
-    link: {
-      color: 'blue',
-      fontSize: 22
-    }
-  });
+};
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "#d73352",
+    paddingVertical: 15,
+    marginVertical: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10
+  },
+  buttonText: {
+    color: "#FFF",
+    fontSize: 18
+  }
+})
+
 export default NavLink
