@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Provider as AuthProvider, Context as AuthContext} from './src/context/AuthContext';
+import { Provider as WorkoutProvider, Context as WorkoutContext} from './src/context/WorkoutContext';
 
 import MainFlowNavigator from './src/navigators/MainFlowNavigator';
 import LoginFlowNavigator from './src/navigators/LoginFlowNavigator';
@@ -16,13 +17,15 @@ export default () => {
 
     return (
         <AuthProvider>
-            <NavigationContainer ref={navigationRef}>
-              <Stack.Navigator>
-                    <Stack.Screen name="ResolveAuthentication" component={ResolveAuthScreen} options={{ headerShown: false}}/>
-                    <Stack.Screen name="MainFlow" component={MainFlowNavigator} options={{ headerShown: false}}/>
-                    <Stack.Screen name="LoginFlow" component={LoginFlowNavigator} options={{ headerShown: false}}/>
-              </Stack.Navigator>
-            </NavigationContainer>
+            <WorkoutProvider>
+                <NavigationContainer ref={navigationRef}>
+                <Stack.Navigator>
+                        <Stack.Screen name="ResolveAuthentication" component={ResolveAuthScreen} options={{ headerShown: false}}/>
+                        <Stack.Screen name="MainFlow" component={MainFlowNavigator} options={{ headerShown: false}}/>
+                        <Stack.Screen name="LoginFlow" component={LoginFlowNavigator} options={{ headerShown: false}}/>
+                </Stack.Navigator>
+                </NavigationContainer>
+            </WorkoutProvider>
         </AuthProvider>
     )
 }

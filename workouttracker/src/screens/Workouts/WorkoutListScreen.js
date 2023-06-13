@@ -6,38 +6,26 @@ import { useNavigation } from '@react-navigation/native';
 
 import WorkoutDisplayItem from '../../components/Workout/WorkoutDisplayItem';
 import Spacer from '../../components/Spacer';
-import { dummyWorkouts } from '../../dummyData';
+
+import {Context as WorkoutContext} from '../../context/WorkoutContext';
+import { SortWorkoutList } from '../../components/helpers/WorkoutListSorter';
 
 const WorkoutListScreen = () => {
     const navigation = useNavigation();
-    const [workoutList, setWorkoutList] = useState(dummyWorkouts);
 
-    // This should interact with a database later, but for now we're just going to store them
-    // in the state, and handle it per session
-    const deleteHandler = (targetIndex) => {
-        Alert.alert('Delete', "Are you sure you wish to delete this item?", [
+    const {state, clearWorkouts, fetchWorkouts} = React.useContext(WorkoutContext);
+    const [isLoaded, setLoaded] = React.useState(false);
+
+    React.useEffect(()=> {
+        const processWorkouts = async () => {
+            if (!isLoaded)
             {
-                text: "Cancel",
-                onPress: () => {
-                    console.log('Cancel Pressed');
-                }
-            },
-            {
-                text: "Ok",
-                onPress: () => {
-                    console.log(`Delete Pressed for index ${targetIndex}`)
-                    setWorkoutList( (prevWorkoutList) => {
-                        prevWorkoutList.splice(targetIndex, 1);
-                        return [...prevWorkoutList];
-                    });
-                }
+                await fetchWorkouts();
+                setLoaded(true);
             }
-        ])
-    }
-
-    const addHandler = (newWorkout) => {
-        setWorkoutList( [...workoutList, newWorkout]);
-    }
+        }
+        processWorkouts();
+    }, [fetchWorkouts, isLoaded]);
 
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
@@ -46,10 +34,10 @@ const WorkoutListScreen = () => {
                 <Button title="Add a Workout" onPress={()=> {navigation.navigate("AddWorkoutScreen", {onSubmit: addHandler})}} />
             </Spacer>
             <Spacer>
-                <FlatList data={workoutList}
-                    extraData={workoutList}
+                <FlatList data={SortWorkoutList(state)}
+                    extraData={state}
                     keyExtractor={(workout) => {
-                        return workoutList.findIndex((testItem) => testItem == workout)
+                        return state.findIndex((testItem) => testItem == workout)
                     }}
                     horizontal = {false}
                     showsHorizontalScrollIndicator = {false}
@@ -57,7 +45,7 @@ const WorkoutListScreen = () => {
                         ({item, index}) => {
                             return (
                                 <Spacer>
-                                    <WorkoutDisplayItem workout={item} deleteItem={deleteHandler}/>
+                                    <WorkoutDisplayItem workout={item}/>
                                 </Spacer>
                             )
                         }

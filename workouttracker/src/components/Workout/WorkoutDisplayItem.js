@@ -3,6 +3,8 @@ import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+import DateFormatter from '../helpers/DateFormatter';
+
 const WorkoutDisplayItem = ({workout, deleteItem}) => {
     const navigation = useNavigation();
 
@@ -12,7 +14,7 @@ const WorkoutDisplayItem = ({workout, deleteItem}) => {
 
     return (
         <TouchableOpacity onPress={displayWorkout} style={styles.displayItem}>
-            <Text>{workout.date}</Text>
+            <Text>{DateFormatter(workout.workoutDate)}</Text>
             <TouchableOpacity onPress={()=> {deleteItem(id)}}>
                 <FontAwesome5 name="trash" size={30} color="black" style={styles.trash}/>
             </TouchableOpacity>
