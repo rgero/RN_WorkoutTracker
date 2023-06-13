@@ -24,6 +24,7 @@ const LoginScreen = ({navigation}) => {
             style={[styles.background, styles.container]} 
             source={backgroundImage}
             resizeMode="cover"
+            opacity="0.75"
         >
             <View style={styles.container} />
             <LoginForm onSubmit={({email, password})=> signIn({email, password})}/>

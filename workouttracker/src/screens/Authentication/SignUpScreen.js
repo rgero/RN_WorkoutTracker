@@ -23,6 +23,7 @@ const SignUpScreen = ({navigation}) => {
             style={[styles.background, styles.container]} 
             source={backgroundImage}
             resizeMode="cover"
+            opacity="0.75"
         >
             <View style={styles.container} />
             <SignUpForm 
