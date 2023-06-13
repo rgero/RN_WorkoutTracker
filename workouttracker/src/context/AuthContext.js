@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import createDataContext from "./createDataContext";
-import workoutAPI from '../api/workouttracker';
+import trackerAPI from '../api/workouttracker';
 
 import {navigate} from '../navigationRef';
 
@@ -10,8 +10,12 @@ const authReducer = (state, action) => {
     {
         case "addError":
             return { ...state, errorMessage: action.payload};
-        case "storeToken":
-            return { errorMessage: "", token: action.payload};
+        case "storeUser":
+            return  {   errorMessage: "", 
+                        token: action.payload.token, 
+                        displayName: action.payload.displayName,
+                        email: action.payload.email
+                    };
         case "clearErrorMessage":
             return {...state, errorMessage: ""}
         case "signout":
@@ -22,11 +26,17 @@ const authReducer = (state, action) => {
 };
 
 const tryLocalSignin = dispatch => async () => {
-    const token = await AsyncStorage.getItem('token');
-    if (token)
+    const userData = await AsyncStorage.getItem('userData');
+    if (userData)
     {
-        dispatch({ type: 'signin', payload: token})
-        navigate('MainFlow', {screen: "TrackFlowList"});
+        let targetData = JSON.parse(userData);
+        let responseData = {
+            token: targetData.token,
+            displayName: targetData.displayName,
+            email: targetData.email
+        }
+        dispatch({type: "storeUser", payload: responseData})
+        navigate('MainFlow', {screen: "WorkoutListScreen"});
     } else {
         navigate('LoginFlow')
     }
@@ -39,42 +49,56 @@ const clearErrorMessage = dispatch => () => {
 const signUp = dispatch => {
     return async ({ email, displayName, password }) => {
         try {
-            const response = await workoutAPI.post('/signup', { email, displayName, password });
-            
-            // Storing the Token
-            await AsyncStorage.setItem('token', response.data.token);
-            dispatch({type: "storeToken", payload: response.data.token})
+            const response = await trackerAPI.post('/signup', { email, displayName, password });
 
+            console.log(response);
+
+            // Storing the User Data
+            let data = {
+                token: response.data.token,
+                displayName: response.data.displayName,
+                email: response.data.email
+            };
+            await AsyncStorage.setItem('userData', JSON.stringify(data));
+            dispatch({type: "storeUser", payload: {token: data.token, displayName: data.displayName, email: data.email}})
+            
             // Navigate to Main Flow
             navigate("MainFlow", {screen: "WorkoutListScreen"})
         } catch (err) {
             console.log(err.message);
-            dispatch({ type: 'addError', payload: "Something went wrong"})
+            dispatch({ type: 'addError', payload: "Sign-up failed. Please try again"})
         }
     };
 }
 
+
 const signIn = (dispatch) => {
     return async ({ email, password }) => {
         try {
-            const response = await workoutAPI.post('/signin', { email, password });
-            
-            // Storing the Token
-            await AsyncStorage.setItem('token', response.data.token);
-            dispatch({type: "storeToken", payload: response.data.token})
+            const response = await trackerAPI.post('/signin', { email, password });
 
+            // Storing the User Data
+            let data = {
+                token: response.data.token,
+                displayName: response.data.displayName,
+                email: response.data.email
+            };
+            await AsyncStorage.setItem('userData', JSON.stringify(data));
+            
+            dispatch({type: "storeUser", payload: {token: data.token, displayName: data.displayName, email: data.email}})
+            
             // Navigate to Main Flow
             navigate("MainFlow", {screen: "WorkoutListScreen"})
         } catch (err) {
             console.log(err.message);
-            dispatch({ type: 'addError', payload: "Something went wrong"})
+            dispatch({ type: 'addError', payload: "Login failed. Please try again"})
         }
     };
 }
 
 const signOut = dispatch => async () => {
     try {
-        await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('userData');
         dispatch({type: "signout"})
         navigate("LoginFlow")
     } catch (err)
@@ -83,8 +107,29 @@ const signOut = dispatch => async () => {
     }
 }
 
+const changeUserData = dispatch => {
+    return async ({email, password, changeData}) => {
+        try {
+            const response = await trackerAPI.post('/change', { email, password, changes: changeData });
+
+            // Storing the User Data
+            let data = {
+                token: response.data.token,
+                displayName: response.data.displayName,
+                email: response.data.email
+            };
+            await AsyncStorage.setItem('userData', JSON.stringify(data));
+            dispatch({type: "storeUser", payload: {token: data.token, displayName: data.displayName, email: data.email}})
+        } catch (err) {
+            console.log(err.message);
+            dispatch({ type: 'addError', payload: "Login failed. Please try again"})
+        }
+    };
+}
+
+
 export const {Provider, Context } = createDataContext(authReducer, 
-                                                      {clearErrorMessage, signUp, signIn, signOut, tryLocalSignin}, 
+                                                      {changeUserData, clearErrorMessage, signUp, signIn, signOut, tryLocalSignin}, 
                                                       {
                                                         token: null,
                                                         errorMessage: ""
