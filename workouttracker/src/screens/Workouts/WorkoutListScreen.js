@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text } from 'react-native-elements'
-import { Alert, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import WorkoutDisplayItem from '../../components/Workout/WorkoutDisplayItem';

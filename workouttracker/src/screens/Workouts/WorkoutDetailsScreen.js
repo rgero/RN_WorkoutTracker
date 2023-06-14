@@ -4,15 +4,17 @@ import { Text } from 'react-native-elements'
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import DateFormatter from '../../components/helpers/DateFormatter';
+
 import ExerciseDisplayItem from '../../components/Exercise/ExerciseDisplayItem';
 import Spacer from '../../components/Spacer';
 
 const WorkoutDetailsScreen = ({route}) => {
     const workout = route.params.workout;
-    setScreenOptions(`Details for ${workout.date}`);
+    setScreenOptions(`Details for ${DateFormatter(workout.workoutDate)}`);
+
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
-            
             <View>
                 <Text h4>Notes</Text>
                 {workout.notes != "" ? (
@@ -21,29 +23,13 @@ const WorkoutDetailsScreen = ({route}) => {
                     <Text>No notes</Text>
                 )}
             </View>
-            <View>
-                <Text h4>Start Time</Text>
-                {workout.startTime != "" ? (
-                    <Text>{workout.startTime}</Text>
-                ) : ( 
-                    <Text>No Start Time defined</Text>
-                )}
-            </View>
-            <View>
-                <Text h4>End Time</Text>
-                {workout.endTime != "" ? (
-                    <Text>{workout.endTime}</Text>
-                ) : ( 
-                    <Text>No End time defined</Text>
-                )}
-            </View>
             <View style={styles.inputContainer}>
                 <Text h4 style={styles.title}>Exercises</Text>
-                {workout.exercises.length > 0 ? (
-                    <FlatList data={workout.exercises}
-                        extraData={workout.exercises}
+                {workout.exerciseList.length > 0 ? (
+                    <FlatList data={workout.exerciseList}
+                        extraData={workout.exerciseList}
                         keyExtractor={(exercise) => {
-                            return workout.exercises.findIndex((testItem) => testItem == exercise)
+                            return workout.exerciseList.findIndex((testItem) => testItem == exercise)
                         }}
                         horizontal = {false}
                         showsHorizontalScrollIndicator = {false}
@@ -59,13 +45,25 @@ const WorkoutDetailsScreen = ({route}) => {
                     />
                 ) : (
                     <Text>No Exercises Defined</Text>
-                )}
+                )} 
             </View>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
+    button: {
+        backgroundColor: "#d73352",
+        paddingVertical: 15,
+        marginVertical: 15,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10
+    },
+    buttonText: {
+        color: "#FFF",
+        fontSize: 18
+    },
 })
 
 const setScreenOptions = (date) => {
