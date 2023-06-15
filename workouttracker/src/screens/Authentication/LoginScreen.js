@@ -5,7 +5,7 @@ import {Context as AuthContext} from '../../context/AuthContext';
 import NavLink from '../../components/NavLink';
 import LoginForm from '../../components/Authentication/LoginForm';
 
-const backgroundImage = require('../../images/dumbbells.jpg')
+const backgroundImage = require('../../../assets/images/dumbbells.jpg')
 
 
 const LoginScreen = ({navigation}) => {

@@ -5,7 +5,7 @@ import {Context as AuthContext} from '../../context/AuthContext';
 import NavLink from '../../components/NavLink';
 import SignUpForm from '../../components/Authentication/SignUpForm';
 
-const backgroundImage = require('../../images/dumbbells.jpg')
+const backgroundImage = require('../../../assets/images/dumbbells.jpg')
 
 const SignUpScreen = ({navigation}) => {
     const {state, signUp, clearErrorMessage} = useContext(AuthContext);

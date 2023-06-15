@@ -3,8 +3,8 @@ import {Image, View, TextInput, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
 import AuthFormStyles from './AuthFormStyles';
 
-const lockIcon = require("../../images/lock.png");
-const emailIcon = require("../../images/email.png");
+const lockIcon = require("../../../assets/images/lock.png");
+const emailIcon = require("../../../assets/images/email.png");
 
 const LoginForm = ({onSubmit}) => {
     const [email, setEmail] = useState("");
