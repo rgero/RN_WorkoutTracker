@@ -3,23 +3,15 @@ import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerIt
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Divider } from 'react-native-paper';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import WorkoutListScreen from '../screens/Workouts/WorkoutListScreen';
-import AddWorkoutScreen from '../screens/Workouts/AddWorkoutScreen';
-import WorkoutDetailsScreen from '../screens/Workouts/WorkoutDetailsScreen';
 
 import {Context as AuthContext} from '../context/AuthContext';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const DrawerNavigator = () => {
-  const {state, signOut, tryLocalSignin} = React.useContext(AuthContext);
+import WorkoutListScreen from '../screens/Workouts/WorkoutListScreen';
+import AddWorkoutScreen from '../screens/Workouts/AddWorkoutScreen';
 
-  React.useEffect(()=> {
-    const processUser = async () => {
-        tryLocalSignin();
-    }
-    processUser();
-  }, [])
-  
+export default DrawerNavigator = () => {
+  const {state, signOut} = React.useContext(AuthContext);
+
   const CustomDrawerContent = (props) => {
     return (
       <DrawerContentScrollView {...props} contentContainerStyle={styles.drawer}>
@@ -46,16 +38,6 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="View Workouts" component={WorkoutListScreen}/>
       <Drawer.Screen name="Add Workouts" component={AddWorkoutScreen}/>
     </Drawer.Navigator>
-  )
-}
-
-const AppStack = createNativeStackNavigator()
-export default AuthenticatedStack = () => {
-  return (
-    <AppStack.Navigator initialRouteName="Drawer">
-      <AppStack.Screen name="Drawer" component={DrawerNavigator} options={{ headerShown: false}}/>
-      <AppStack.Screen name="WorkoutDetails" component={WorkoutDetailsScreen} options={{ headerShown: false}}/>
-    </AppStack.Navigator>
   )
 }
 

@@ -36,7 +36,7 @@ const tryLocalSignin = dispatch => async () => {
             email: targetData.email
         }
         dispatch({type: "storeUser", payload: responseData})
-        navigate('MainFlow', {screen: "WorkoutListScreen"});
+        navigate('AuthenticatedFlow', {screen: "WorkoutListScreen"});
     } else {
         navigate('LoginFlow')
     }
@@ -63,7 +63,7 @@ const signUp = dispatch => {
             dispatch({type: "storeUser", payload: {token: data.token, displayName: data.displayName, email: data.email}})
             
             // Navigate to Main Flow
-            navigate("MainFlow", {screen: "WorkoutListScreen"})
+            navigate("AuthenticatedFlow", {screen: "WorkoutListScreen"})
         } catch (err) {
             console.log(err.message);
             dispatch({ type: 'addError', payload: "Sign-up failed. Please try again"})
@@ -88,7 +88,7 @@ const signIn = (dispatch) => {
             dispatch({type: "storeUser", payload: {token: data.token, displayName: data.displayName, email: data.email}})
             
             // Navigate to Main Flow
-            navigate("MainFlow", {screen: "WorkoutListScreen"})
+            navigate("AuthenticatedFlow", {screen: "WorkoutListScreen"})
         } catch (err) {
             console.log(err.message);
             dispatch({ type: 'addError', payload: "Login failed. Please try again"})
@@ -126,7 +126,6 @@ const changeUserData = dispatch => {
         }
     };
 }
-
 
 export const {Provider, Context } = createDataContext(authReducer, 
                                                       {changeUserData, clearErrorMessage, signUp, signIn, signOut, tryLocalSignin}, 
