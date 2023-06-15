@@ -9,10 +9,16 @@ const ExerciseDisplayItem = ({name, muscleGroup, notes, setList, id, deleteItem}
             <View style={styles.exerciseDisplay}>
                 <Text h4>{name} - {muscleGroup}</Text>
                 <Text>{notes}</Text>
-                <View>
+                <View styles={styles.setGroup}>
                     <View style={styles.setHeader}>
                         <Text h4>Reps</Text>
-                        <Text h4>Weight</Text>
+                        { setList[0].weight ? (
+                                <Text h4>Weight</Text>
+                            ) : ( 
+                                null 
+                            )
+                        }
+                        
                     </View>
                     <FlatList data={setList}
                         extraData={setList}
@@ -26,7 +32,12 @@ const ExerciseDisplayItem = ({name, muscleGroup, notes, setList, id, deleteItem}
                                 return (
                                     <View style={styles.setItem}>
                                         <Text>{item.reps}</Text>
-                                        <Text>{item.weight}</Text>
+                                        { item.weight ? (
+                                            <Text>{item.weight}</Text>
+                                        ) : ( 
+                                            null
+                                        )}
+                                        
                                     </View>
                                 )
                             }
@@ -77,6 +88,11 @@ const styles = StyleSheet.create({
         borderColor: "gray",
         textAlign: "center"
     },
+    setGroup: {
+        display: "flex:",
+        justifyContent: "center",
+        alignItems: "center"
+    }
 })
 
 export default ExerciseDisplayItem
