@@ -1,85 +1,63 @@
-import { FlatList, View, Text} from 'react-native'
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import {Col, Row} from '../helpers/Grids';
+import { Card } from 'react-native-elements'
+import { StyleSheet, Text } from 'react-native';
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 export default ExerciseItem = ({name, muscleGroup, notes, setList, id, deleteItem}) => 
 {
-
     return (
         <Card>
             <Card.Title>{name}</Card.Title>
             <Card.Divider/>
             {
-                <View style={styles.app}>
+                <Grid>
                     <Row>
-                        <Col numRows={1}>
-                            <Text>Muscle Group</Text>
-                        </Col>
-                        <Col numRows={3}>
-                            <Text>{muscleGroup}</Text>
-                        </Col>
+                        <Col size={25}><Text>Muscle Group</Text></Col>
+                        <Col size={75}><Text>{muscleGroup}</Text></Col>
                     </Row>
                     <Row>
-                        <Col numRows={1}>
-                            <Text>Notes</Text>
-                        </Col>
-                        <Col numRows={3}>
-                            <Text>{notes}</Text>
-                        </Col>
+                        <Col size={25}><Text>Notes</Text></Col>
+                        <Col size={75}><Text>{notes}</Text></Col>
                     </Row>
                     <Row>
-                        <Col numRows={1}>
-                            <Text>Set List</Text>
-                        </Col>
-                        <Col numRows={3}>
-                            <>
-                                <View style={styles.setHeader}>
-                                    <Text h4>Reps</Text>
-                                    { setList[0].weight ? (
-                                            <Text h4>Weight</Text>
-                                        ) : ( 
-                                            null 
-                                        )
-                                    }
-                                    
-                                </View>
-                                <FlatList data={setList}
-                                    extraData={setList}
-                                    keyExtractor={(set) => {
-                                        return setList.findIndex((testItem) => testItem == set)
-                                    }}
-                                    horizontal = {false}
-                                    showsHorizontalScrollIndicator = {false}
-                                    renderItem={
-                                        ({item}) => {
-                                            return (
-                                                <View style={styles.setItem}>
-                                                    <Text>{item.reps}</Text>
-                                                    { item.weight ? (
-                                                        <Text>{item.weight}</Text>
-                                                    ) : ( 
-                                                        null
-                                                    )}
-                                                    
-                                                </View>
-                                            )
-                                        }
-                                    }
-                                />
-                            </>
-                        </Col>
+                        <Col size={25}><Text>Set List</Text></Col>
+                        <Col size={75}>{CreateSetListTable(setList)}</Col>
                     </Row>
-                </View>
+                </Grid>
             }
         </Card>
     )
 }
 
-const styles = {
-    app: {
-        flex: 4,
-        width: 400,
-        alignItems: "center",
-        justifyContent: "center"
-    }
+const CreateSetListTable = (setList) => {
+    return(
+        <Grid>
+            <Row>
+                <Col size={50}><Text>Reps</Text></Col>
+                { setList.weight ? (
+                    <Col size={50}><Text>Weight</Text></Col>
+                ) : ( 
+                    null 
+                )}
+            </Row>
+            { setList.map( (set) => {
+                return (
+                    <Row key={`${set.reps}_${set.weight}`}>
+                        <Col size={50}><Text>{set.reps}</Text></Col>
+                        { set.weight ? (
+                            <Col size={50}><Text>{set.weight}</Text></Col>
+                        ) : ( 
+                            null 
+                        )}
+                    </Row>
+                )
+            })}
+        </Grid>
+    )
 }
+
+const styles = StyleSheet.create({
+    head: {  backgroundColor: '#f1f8ff'  },
+    title: { flex: 1, backgroundColor: '#f6f8fa' },
+    text: { textAlign: 'center' },
+    wrapper: { flexDirection: 'row' },
+})
