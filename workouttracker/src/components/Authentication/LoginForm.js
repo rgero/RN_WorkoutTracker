@@ -28,6 +28,7 @@ const LoginForm = ({onSubmit}) => {
                         underlineColorAndroid="transparent"
                         value={email}
                         onChangeText={setEmail}
+                        autoCapitalize="none"
                     />
                 </View>
                 <View style={AuthFormStyles.inputWrap}>

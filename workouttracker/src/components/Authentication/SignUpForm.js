@@ -42,6 +42,7 @@ const SignUpForm = ({headerText, errorMessage, buttonText, onSubmit}) => {
                         underlineColorAndroid="transparent"
                         value={email}
                         onChangeText={setEmail}
+                        autoCapitalize="none"
                     />
                 </View>
 
