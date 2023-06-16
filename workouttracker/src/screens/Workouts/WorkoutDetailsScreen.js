@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import DateFormatter from '../../components/helpers/DateFormatter';
 
-import ExerciseDisplayItem from '../../components/Exercise/ExerciseDisplayItem';
+import ExerciseItem from '../../components/Exercise/ExerciseItem';
 import Spacer from '../../components/Spacer';
 
 const WorkoutDetailsScreen = ({navigation, route}) => {
@@ -42,7 +42,7 @@ const WorkoutDetailsScreen = ({navigation, route}) => {
                             ({item, index}) => {
                                 return (
                                     <Spacer>
-                                        <ExerciseDisplayItem name={item.name} muscleGroup={item.muscleGroup} setList={item.setList}/>
+                                        <ExerciseItem name={item.name} muscleGroup={item.muscleGroup} setList={item.setList}/>
                                     </Spacer>
                                 )
                             }
