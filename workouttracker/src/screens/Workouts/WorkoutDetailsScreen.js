@@ -9,9 +9,14 @@ import DateFormatter from '../../components/helpers/DateFormatter';
 import ExerciseDisplayItem from '../../components/Exercise/ExerciseDisplayItem';
 import Spacer from '../../components/Spacer';
 
-const WorkoutDetailsScreen = ({route}) => {
-    const workout = route.params.workout;
-    setScreenOptions(`Details for ${DateFormatter(workout.workoutDate)}`);
+const WorkoutDetailsScreen = ({navigation, route}) => {
+    let workout = route.params.workout;
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: true,
+            title: `Workout on ${DateFormatter(workout.workoutDate)}`
+        })
+      }, [])
 
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
