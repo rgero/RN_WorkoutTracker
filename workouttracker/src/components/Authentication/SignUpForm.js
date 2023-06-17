@@ -1,28 +1,18 @@
 import React, {useState} from 'react';
 import {Image, View, TextInput, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
-import AuthFormStyles from './AuthFormStyles';
+
+import AuthFormStyles from '../../styles/AuthFormStyles';
 
 const lockIcon = require("../../../assets/images/lock.png");
 const personIcon = require("../../../assets/images/person.png");
 const emailIcon = require("../../../assets/images/email.png");
 
-const SignUpForm = ({headerText, errorMessage, buttonText, onSubmit}) => {
+const SignUpForm = ({onSubmit}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordRetype, setPasswordRentry] = useState("")
     const [displayName, setDisplayName] = useState("");
-    const [errMsg, setError] = useState(errorMessage ? errorMessage : "");
-
-    const validateForm = (e) => {
-        e.preventDefault();
-        if (email === "" || password === "" || displayName === "" || passwordRetype === "")
-        {
-            setError("Please fill out the form");
-        }
-
-        onSubmit({email, displayName, password});
-    }
 
     return (
         <>

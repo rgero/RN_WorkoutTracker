@@ -1,12 +1,13 @@
 import React, {useEffect, useContext} from 'react';
 import {ImageBackground, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
+import AuthFormStyles from '../../styles/AuthFormStyles';
+
 import {Context as AuthContext} from '../../context/AuthContext';
 import NavLink from '../../components/NavLink';
 import LoginForm from '../../components/Authentication/LoginForm';
 
 const backgroundImage = require('../../../assets/images/dumbbells.jpg')
-
 
 const LoginScreen = ({navigation}) => {
     const {state, signIn, clearErrorMessage} = useContext(AuthContext);
@@ -27,7 +28,16 @@ const LoginScreen = ({navigation}) => {
             opacity="0.75"
         >
             <View style={styles.container} />
-            <LoginForm onSubmit={({email, password})=> signIn({email, password})}/>
+            <LoginForm
+                errorMessage = {state.errorMessage}
+                onSubmit={({email, password})=> signIn({email, password})}
+            />
+            <View style={AuthFormStyles.errorView}>
+                {state.errorMessage ? (
+                    <Text style={AuthFormStyles.errorMessage}>Error! Login Failed</Text>
+                ) : ( <Text></Text> )
+                }
+            </View>
             <View style={styles.container} />
             <View style={styles.wrapper}>
                 <NavLink

@@ -48,5 +48,14 @@ export default StyleSheet.create({
         color: "#FFF",
         backgroundColor: "transparent",
         textAlign: "center"
+    },
+    errorMessage: {
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 30
+    },
+    errorView: {
+        height: 40,
+        marginTop: 20
     }
 })

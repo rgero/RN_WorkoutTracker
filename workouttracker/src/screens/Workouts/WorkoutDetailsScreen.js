@@ -19,7 +19,7 @@ const WorkoutDetailsScreen = ({navigation, route}) => {
       }, [])
 
     return (
-        <SafeAreaView forceInset={{ top: 'always' }}>
+        <SafeAreaView forceInset={{ top: 'always', horizontal: 'always' }}>
             <View>
                 <Text h4>Notes</Text>
                 {workout.notes != "" ? (

@@ -1,6 +1,8 @@
 import React, {useEffect, useContext} from 'react';
 import {ImageBackground, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
+import AuthFormStyles from '../../styles/AuthFormStyles';
+
 import {Context as AuthContext} from '../../context/AuthContext';
 import NavLink from '../../components/NavLink';
 import SignUpForm from '../../components/Authentication/SignUpForm';
@@ -27,12 +29,16 @@ const SignUpScreen = ({navigation}) => {
         >
             <View style={styles.container} />
             <SignUpForm 
-                headerText="Sign Up for Workout Tracker!" 
-                buttonText="Sign Up!" 
                 errorMessage={state.errorMessage} 
                 onSubmit={({email, displayName, password})=> signUp({email, displayName, password})}
             />
             <View style={styles.container} />
+            <View style={AuthFormStyles.errorView}>
+                {state.errorMessage ? (
+                    <Text style={AuthFormStyles.errorMessage}>Error! Sign-Up Failed</Text>
+                ) : ( <Text></Text> )
+                }
+            </View>
             <View style={styles.container} />
             <View style={styles.wrapper}>
                 <NavLink

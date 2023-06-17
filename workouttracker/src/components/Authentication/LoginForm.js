@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Image, View, TextInput, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
-import AuthFormStyles from './AuthFormStyles';
+
+import AuthFormStyles from '../../styles/AuthFormStyles';
 
 const lockIcon = require("../../../assets/images/lock.png");
 const emailIcon = require("../../../assets/images/email.png");

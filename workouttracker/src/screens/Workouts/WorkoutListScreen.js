@@ -28,7 +28,7 @@ const WorkoutListScreen = () => {
     }, [fetchWorkouts, isLoaded]);
 
     return (
-        <SafeAreaView forceInset={{ top: 'always' }}>
+        <SafeAreaView forceInset={{ top: 'always', horizontal: 'always'  }}>
             <Text h2>Track your Workout!</Text>
             <Spacer>
                 <Button title="Add a Workout" onPress={()=> {navigation.navigate("AddWorkoutScreen", {onSubmit: addHandler})}} />
