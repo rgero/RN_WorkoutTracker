@@ -8,6 +8,7 @@ import DateFormatter from '../../components/helpers/DateFormatter';
 
 import ExerciseItem from '../../components/Exercise/ExerciseItem';
 import Spacer from '../../components/Spacer';
+import { ScreenStyles } from '../../styles/ScreenStyles';
 
 const WorkoutDetailsScreen = ({navigation, route}) => {
     let workout = route.params.workout;
@@ -19,8 +20,8 @@ const WorkoutDetailsScreen = ({navigation, route}) => {
       }, [])
 
     return (
-        <SafeAreaView forceInset={{ top: 'always', horizontal: 'always' }}>
-            <View>
+        <SafeAreaView forceInset={{ top: 'always', horizontal: 'always' }} style={ScreenStyles.viewport}>
+            <View style={styles.exerciseSegment}>
                 <Text h4>Notes</Text>
                 {workout.notes != "" ? (
                     <Text>{workout.notes}</Text>
@@ -28,8 +29,8 @@ const WorkoutDetailsScreen = ({navigation, route}) => {
                     <Text>No notes</Text>
                 )}
             </View>
-            <View style={styles.inputContainer}>
-                <Text h4 style={styles.title}>Exercises</Text>
+            <View style={styles.exerciseSegment}>
+                <Text h4>Exercises</Text>
                 {workout.exerciseList.length > 0 ? (
                     <FlatList data={workout.exerciseList}
                         extraData={workout.exerciseList}
@@ -41,9 +42,7 @@ const WorkoutDetailsScreen = ({navigation, route}) => {
                         renderItem={
                             ({item, index}) => {
                                 return (
-                                    <Spacer>
-                                        <ExerciseItem name={item.name} muscleGroup={item.muscleGroup} setList={item.setList}/>
-                                    </Spacer>
+                                    <ExerciseItem name={item.name} muscleGroup={item.muscleGroup} setList={item.setList} notes={item.notes}/>
                                 )
                             }
                         }
@@ -69,16 +68,9 @@ const styles = StyleSheet.create({
         color: "#FFF",
         fontSize: 18
     },
-})
-
-const setScreenOptions = (date) => {
-    const navigation = useNavigation();
-    const options = {
-        headerShown: true, 
-        title: date
+    exerciseSegment : {
+        paddingBottom: 10
     }
-    navigation.setOptions(options); // This lets me set it on the screen, might be worth displaying Date?
-}
-
+})
 
 export default WorkoutDetailsScreen

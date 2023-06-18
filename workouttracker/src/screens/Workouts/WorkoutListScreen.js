@@ -9,6 +9,7 @@ import Spacer from '../../components/Spacer';
 
 import {Context as WorkoutContext} from '../../context/WorkoutContext';
 import { SortWorkoutList } from '../../components/helpers/WorkoutListSorter';
+import { ScreenStyles } from '../../styles/ScreenStyles';
 
 const WorkoutListScreen = () => {
     const navigation = useNavigation();
@@ -28,7 +29,7 @@ const WorkoutListScreen = () => {
     }, [fetchWorkouts, isLoaded]);
 
     return (
-        <SafeAreaView forceInset={{ top: 'always', horizontal: 'always'  }}>
+        <SafeAreaView forceInset={{ top: 'always' }} style={ScreenStyles.viewport}>
             <Text h2>Track your Workout!</Text>
             <Spacer>
                 <Button title="Add a Workout" onPress={()=> {navigation.navigate("AddWorkoutScreen", {onSubmit: addHandler})}} />

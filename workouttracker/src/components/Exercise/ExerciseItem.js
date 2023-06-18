@@ -1,6 +1,5 @@
 import { Card } from 'react-native-elements'
-import { StyleSheet, Text } from 'react-native';
-import { Col, Row, Grid } from "react-native-easy-grid";
+import { StyleSheet, Text, View } from 'react-native';
 
 export default ExerciseItem = ({name, muscleGroup, notes, setList, id, deleteItem}) => 
 {
@@ -9,20 +8,32 @@ export default ExerciseItem = ({name, muscleGroup, notes, setList, id, deleteIte
             <Card.Title>{name}</Card.Title>
             <Card.Divider/>
             {
-                <Grid>
-                    <Row>
-                        <Col size={25}><Text>Muscle Group</Text></Col>
-                        <Col size={75}><Text>{muscleGroup}</Text></Col>
-                    </Row>
-                    <Row>
-                        <Col size={25}><Text>Notes</Text></Col>
-                        <Col size={75}><Text>{notes}</Text></Col>
-                    </Row>
-                    <Row>
-                        <Col size={25}><Text>Set List</Text></Col>
-                        <Col size={75}>{CreateSetListTable(setList)}</Col>
-                    </Row>
-                </Grid>
+                <View style={styles.exerciseSection}>
+                    <View style={styles.dataRow}>
+                        <View style={styles.headerCol}>
+                            <Text>Muscle Group</Text>
+                        </View>
+                        <View style={styles.dataCol}>
+                            <Text>{muscleGroup}</Text>
+                        </View>
+                    </View>
+                    <View style={styles.dataRow}>
+                        <View style={styles.headerCol}>
+                            <Text>Notes</Text>
+                        </View>
+                        <View style={styles.dataCol}>
+                            <Text>{notes}</Text>
+                        </View>
+                    </View>
+                    <View style={styles.dataRow}>
+                        <View style={styles.headerCol}>
+                            <Text>Set List</Text>
+                        </View>
+                        <View style={styles.dataCol}>
+                            {CreateSetListTable(setList)}
+                        </View>
+                    </View>
+                </View>
             }
         </Card>
     )
@@ -30,34 +41,76 @@ export default ExerciseItem = ({name, muscleGroup, notes, setList, id, deleteIte
 
 const CreateSetListTable = (setList) => {
     return(
-        <Grid>
-            <Row>
-                <Col size={50}><Text>Reps</Text></Col>
+        <View>
+            <View style={styles.dataRow}>
                 { setList.weight ? (
-                    <Col size={50}><Text>Weight</Text></Col>
+                    <>
+                        <View style={styles.setCol}>
+                            <Text>Reps</Text>
+                        </View>
+                        <View style={styles.setCol}>
+                            <Text>Weight</Text>
+                        </View>
+                    </>
                 ) : ( 
-                    null 
+                    <View style={styles.setNoWeight}>
+                        <Text>Reps</Text>
+                    </View>
                 )}
-            </Row>
+            </View>
             { setList.map( (set) => {
                 return (
-                    <Row key={`${set.reps}_${set.weight}`}>
-                        <Col size={50}><Text>{set.reps}</Text></Col>
+                    <View style={styles.dataRow} key={`${set.reps}_${set.weight}`}>
                         { set.weight ? (
-                            <Col size={50}><Text>{set.weight}</Text></Col>
+                            <>
+                                <View style={styles.setCol}>
+                                    <Text>{set.reps}</Text>
+                                </View>
+                                <View style={styles.setCol}>
+                                    <Text>{set.weight}</Text>
+                                </View>
+                            </>
                         ) : ( 
-                            null 
+                            <View style={styles.setNoWeight}>
+                                <Text>{set.reps}</Text>
+                            </View>
                         )}
-                    </Row>
+                    </View>
                 )
             })}
-        </Grid>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    head: {  backgroundColor: '#f1f8ff'  },
-    title: { flex: 1, backgroundColor: '#f6f8fa' },
-    text: { textAlign: 'center' },
-    wrapper: { flexDirection: 'row' },
+    dataRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: "80%",
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderRadius: 5
+    },
+    headerCol: {
+        width: "25%",
+        fontWeight: 'bold',
+        textAlign: 'left'
+    },
+    dataCol: {
+        width: "75%",
+    },
+    exerciseSection: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    setCol: {
+        width: "50%",
+        textAlign: 'center'
+    },
+    setNoWeight: {
+        width: "100%",
+        justifyContent: 'center',
+        textAlign: 'center'
+    }
 })
