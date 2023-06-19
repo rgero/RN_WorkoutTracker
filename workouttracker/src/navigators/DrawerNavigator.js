@@ -36,7 +36,7 @@ export default DrawerNavigator = () => {
   return (
     <Drawer.Navigator drawerContent={props=> <CustomDrawerContent {...props}/>} defaultStatus="closed">
       <Drawer.Screen name="View Workouts" component={WorkoutListScreen}/>
-      <Drawer.Screen name="Add Workouts" component={AddWorkoutScreen}/>
+      <Drawer.Screen name="Add Workout" component={AddWorkoutScreen}/>
     </Drawer.Navigator>
   )
 }

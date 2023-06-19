@@ -36,7 +36,7 @@ const WorkoutListScreen = ({navigation}) => {
             <>
                 <Text h2>Track your Workout!</Text>
                 <Spacer>
-                    <Button title="Add a Workout" onPress={()=> {navigation.navigate("AddWorkoutScreen", {onSubmit: addHandler})}} />
+                    <Button title="Add a Workout" onPress={()=> {navigation.navigate("Drawer", {screen: "Add Workout"})}} />
                 </Spacer>
                 <Spacer>
                     <FlatList data={SortWorkoutList(state)}

@@ -2,12 +2,9 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text } from 'react-native-elements'
 import { FlatList, StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import DateFormatter from '../../components/helpers/DateFormatter';
-
 import ExerciseItem from '../../components/Exercise/ExerciseItem';
-import Spacer from '../../components/Spacer';
 import { ScreenStyles } from '../../styles/ScreenStyles';
 
 const WorkoutDetailsScreen = ({navigation, route}) => {

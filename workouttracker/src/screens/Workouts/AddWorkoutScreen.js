@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {Text, StyleSheet} from 'react-native';
+
+import { ScreenStyles } from '../../styles/ScreenStyles';
 
 const AddWorkoutScreen = () => {
 
@@ -11,7 +14,7 @@ const AddWorkoutScreen = () => {
     const [exerciseList, setExerciseList] = useState([]);
     
     return (
-        <View>
+        <SafeAreaView forceInset={{ top: 'always' }} style={ScreenStyles.viewport}>
             <Text>Add Workout</Text>
             <Text>Date</Text>
             <Text>{date}</Text>
@@ -19,7 +22,7 @@ const AddWorkoutScreen = () => {
             <Text>End Time</Text>
             <Text>Notes</Text>
             <Text>Exercise List (where you can add stuff)</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 
