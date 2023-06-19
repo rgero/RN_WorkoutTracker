@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text } from 'react-native-elements'
 import { FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import WorkoutDisplayItem from '../../components/Workout/WorkoutDisplayItem';
 import Spacer from '../../components/Spacer';
@@ -11,48 +10,55 @@ import {Context as WorkoutContext} from '../../context/WorkoutContext';
 import { SortWorkoutList } from '../../components/helpers/WorkoutListSorter';
 import { ScreenStyles } from '../../styles/ScreenStyles';
 
-const WorkoutListScreen = () => {
-    const navigation = useNavigation();
-
-    const {state, clearWorkouts, fetchWorkouts} = React.useContext(WorkoutContext);
+const WorkoutListScreen = ({navigation}) => {
+    const {state, fetchWorkouts} = React.useContext(WorkoutContext);
     const [isLoaded, setLoaded] = React.useState(false);
 
     React.useEffect(()=> {
         const processWorkouts = async () => {
             if (!isLoaded)
             {
-                await fetchWorkouts();
+                await fetchWorkouts();  
                 setLoaded(true);
             }
         }
-        processWorkouts();
-    }, [fetchWorkouts, isLoaded]);
+        
+        navigation.addListener('focus', async () => {
+            setLoaded(false);
+            await processWorkouts();
+        });
+
+    }, [isLoaded]);
 
     return (
         <SafeAreaView forceInset={{ top: 'always' }} style={ScreenStyles.viewport}>
-            <Text h2>Track your Workout!</Text>
-            <Spacer>
-                <Button title="Add a Workout" onPress={()=> {navigation.navigate("AddWorkoutScreen", {onSubmit: addHandler})}} />
-            </Spacer>
-            <Spacer>
-                <FlatList data={SortWorkoutList(state)}
-                    extraData={state}
-                    keyExtractor={(workout) => {
-                        return state.findIndex((testItem) => testItem == workout)
-                    }}
-                    horizontal = {false}
-                    showsHorizontalScrollIndicator = {false}
-                    renderItem={
-                        ({item, index}) => {
-                            return (
-                                <Spacer>
-                                    <WorkoutDisplayItem workout={item}/>
-                                </Spacer>
-                            )
+        { isLoaded ? (
+            <>
+                <Text h2>Track your Workout!</Text>
+                <Spacer>
+                    <Button title="Add a Workout" onPress={()=> {navigation.navigate("AddWorkoutScreen", {onSubmit: addHandler})}} />
+                </Spacer>
+                <Spacer>
+                    <FlatList data={SortWorkoutList(state)}
+                        extraData={state}
+                        keyExtractor={(workout) => {
+                            return state.findIndex((testItem) => testItem == workout)
+                        }}
+                        horizontal = {false}
+                        showsHorizontalScrollIndicator = {false}
+                        renderItem={
+                            ({item, index}) => {
+                                return (
+                                    <Spacer>
+                                        <WorkoutDisplayItem workout={item}/>
+                                    </Spacer>
+                                )
+                            }
                         }
-                    }
-                />
-            </Spacer>
+                    />
+                </Spacer>
+            </>
+            ) : ( null )}
         </SafeAreaView>
     )
 
