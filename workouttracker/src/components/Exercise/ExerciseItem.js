@@ -1,5 +1,6 @@
 import { Card } from 'react-native-elements'
 import { StyleSheet, Text, View } from 'react-native';
+import SetList from '../Set/SetList';
 
 export default ExerciseItem = ({name, muscleGroup, notes, setList, id, deleteItem}) => 
 {
@@ -30,55 +31,12 @@ export default ExerciseItem = ({name, muscleGroup, notes, setList, id, deleteIte
                             <Text>Set List</Text>
                         </View>
                         <View style={styles.dataCol}>
-                            {CreateSetListTable(setList)}
+                            <SetList setList={setList}/>
                         </View>
                     </View>
                 </View>
             }
         </Card>
-    )
-}
-
-const CreateSetListTable = (setList) => {
-    return(
-        <View>
-            <View style={styles.dataRow}>
-                { setList.weight ? (
-                    <>
-                        <View style={styles.setCol}>
-                            <Text>Reps</Text>
-                        </View>
-                        <View style={styles.setCol}>
-                            <Text>Weight</Text>
-                        </View>
-                    </>
-                ) : ( 
-                    <View style={styles.setNoWeight}>
-                        <Text>Reps</Text>
-                    </View>
-                )}
-            </View>
-            { setList.map( (set) => {
-                return (
-                    <View style={styles.dataRow} key={`${set.reps}_${set.weight}`}>
-                        { set.weight ? (
-                            <>
-                                <View style={styles.setCol}>
-                                    <Text>{set.reps}</Text>
-                                </View>
-                                <View style={styles.setCol}>
-                                    <Text>{set.weight}</Text>
-                                </View>
-                            </>
-                        ) : ( 
-                            <View style={styles.setNoWeight}>
-                                <Text>{set.reps}</Text>
-                            </View>
-                        )}
-                    </View>
-                )
-            })}
-        </View>
     )
 }
 
@@ -103,14 +61,5 @@ const styles = StyleSheet.create({
     exerciseSection: {
         flex: 1,
         alignItems: 'center'
-    },
-    setCol: {
-        width: "50%",
-        textAlign: 'center'
-    },
-    setNoWeight: {
-        width: "100%",
-        justifyContent: 'center',
-        textAlign: 'center'
     }
 })

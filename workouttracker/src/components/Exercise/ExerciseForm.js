@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text } from 'react-native-elements'
-import { Alert, FlatList, StyleSheet, TextInput, View} from 'react-native';
+import { Alert, ScrollView, StyleSheet, TextInput, View} from 'react-native';
 
-import SetItem from '../Set/SetItem';
-import SetListItem from '../Set/SetListItem';
+import Spacer from '../Spacer';
+
+import SetList from '../Set/SetList';
+import SetForm from '../Set/SetForm';
 
 const ExerciseForm = ({onSubmit}) => {
     const [setList, setSetList] = useState([]);
-    const [muscleGroup, setMuscleGroup] = useState([]);
+    const [muscleGroup, setMuscleGroup] = useState("");
     const [exerciseName, setExerciseName] = useState("")
     const [notes, setNotes] = useState("");
 
@@ -48,7 +49,7 @@ const ExerciseForm = ({onSubmit}) => {
     }
 
     return (
-        <View style={styles.safeArea}>
+        <ScrollView style={styles.safeArea} keyboardShouldPersistTaps='handled'>
             <View style={styles.inputContainer}>
                 <Text h4>Name</Text>
                 <TextInput value={exerciseName} placeholder="Exercise Name" 
@@ -72,23 +73,11 @@ const ExerciseForm = ({onSubmit}) => {
             </View>
             <View style={styles.inputContainer}>
                 <Text h4 style={styles.title}>Sets</Text>
-                <SetItem onSubmit={addHandler}/>
-                <FlatList data={setList}
-                    extraData={setList}
-                    keyExtractor={(exercise) => {
-                        return setList.findIndex((testItem) => testItem == exercise)
-                    }}
-                    horizontal = {false}
-                    showsHorizontalScrollIndicator = {false}
-                    renderItem={
-                        ({item, index}) => {
-                            return <SetListItem reps={item.reps} weight={item.weight} id={index} deleteItem={deleteHandler}/>
-                        }
-                    }
-                />
+                <SetForm onSubmit={addHandler}/>
+                <SetList setList={setList}/>
             </View>
             <Button title="Submit Exercise" onPress={handleSubmit} />
-        </View>
+        </ScrollView>
     )
 }
 

@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {Text, StyleSheet} from 'react-native';
 
 import { ScreenStyles } from '../../styles/ScreenStyles';
+import ExerciseForm from '../../components/Exercise/ExerciseForm';
 
 const AddWorkoutScreen = () => {
 
@@ -15,18 +16,9 @@ const AddWorkoutScreen = () => {
     
     return (
         <SafeAreaView forceInset={{ top: 'always' }} style={ScreenStyles.viewport}>
-            <Text>Add Workout</Text>
-            <Text>Date</Text>
-            <Text>{date}</Text>
-            <Text>Start Time - {startTime}</Text>
-            <Text>End Time</Text>
-            <Text>Notes</Text>
-            <Text>Exercise List (where you can add stuff)</Text>
+            <ExerciseForm/>
         </SafeAreaView>
     )
 }
-
-const styles = StyleSheet.create({
-})
 
 export default AddWorkoutScreen
