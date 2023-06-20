@@ -8,9 +8,9 @@ export default SetList = ({setList}) => {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.dataRow}>
-                { setList.weight ? (
+                { setList[0].weight ? (
                     <>
                         <View style={styles.setCol}>
                             <Text>Reps</Text>
@@ -50,6 +50,12 @@ export default SetList = ({setList}) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 20
+    },
     dataRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
