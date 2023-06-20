@@ -74,7 +74,7 @@ const ExerciseForm = ({onSubmit}) => {
             <View style={styles.inputContainer}>
                 <Text h4 style={styles.title}>Sets</Text>
                 <SetForm onSubmit={addHandler}/>
-                <SetList setList={setList}/>
+                <SetList setList={setList} deleteHandler={deleteHandler}/>
             </View>
             <Button title="Submit Exercise" onPress={handleSubmit} />
         </ScrollView>

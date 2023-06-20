@@ -1,50 +1,52 @@
-import { Text, StyleSheet, View} from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, View} from 'react-native';
+import React from 'react';
 
-export default SetList = ({setList}) => {
-
-    if (setList.length == 0)
-    {
-        return (null);
-    }
+export default SetList = ({setList, deleteHandler}) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.dataRow}>
-                { setList[0].weight ? (
-                    <>
-                        <View style={styles.setCol}>
-                            <Text>Reps</Text>
-                        </View>
-                        <View style={styles.setCol}>
-                            <Text>Weight</Text>
-                        </View>
-                    </>
-                ) : ( 
-                    <View style={styles.setNoWeight}>
-                        <Text>Reps</Text>
-                    </View>
-                )}
-            </View>
-            { setList.map( (set) => {
-                return (
-                    <View style={styles.dataRow} key={`${set.reps}_${set.weight}`}>
-                        { set.weight ? (
+            { setList.length == 0 ? (
+                null
+            ) : (
+                <>   
+                    <View style={styles.dataRow}>
+                        { setList[0].weight ? (
                             <>
                                 <View style={styles.setCol}>
-                                    <Text>{set.reps}</Text>
+                                    <Text>Reps</Text>
                                 </View>
                                 <View style={styles.setCol}>
-                                    <Text>{set.weight}</Text>
+                                    <Text>Weight</Text>
                                 </View>
                             </>
                         ) : ( 
                             <View style={styles.setNoWeight}>
-                                <Text>{set.reps}</Text>
+                                <Text>Reps</Text>
                             </View>
                         )}
                     </View>
-                )
-            })}
+                    { setList.map( (set, index) => {
+                        return (
+                            <TouchableOpacity style={styles.dataRow} key={index} onPress={()=> deleteHandler(index)}>
+                                { set.weight ? (
+                                    <>
+                                        <View style={styles.setCol}>
+                                            <Text>{set.reps}</Text>
+                                        </View>
+                                        <View style={styles.setCol}>
+                                            <Text>{set.weight}</Text>
+                                        </View>
+                                    </>
+                                ) : ( 
+                                    <View style={styles.setNoWeight}>
+                                        <Text>{set.reps}</Text>
+                                    </View>
+                                )}
+                            </TouchableOpacity>
+                        )
+                    })}
+                </>
+            )}
         </View>
     )
 }

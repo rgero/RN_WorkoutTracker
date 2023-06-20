@@ -25,12 +25,16 @@ const SetForm = ({onSubmit}) => {
             <View style={styles.inputField}>
                 <TextInput value={reps} placeholder="Reps" 
                     onChangeText={setReps}
-                    keyboardType="numeric"
+                    inputMode="decimal"
+                    keyboardType="number-pad"
+                    returnKeyType="done"
                     style={styles.numericInput}
                 />
                 <TextInput value={weight} placeholder="Weight" 
                     onChangeText={setWeight} 
-                    keyboardType="numeric"
+                    inputMode="decimal"
+                    keyboardType="number-pad"
+                    returnKeyType="done"
                     style={styles.numericInput}
                 />
                 <TouchableOpacity onPress={onSubmitPress}>
