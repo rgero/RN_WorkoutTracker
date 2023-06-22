@@ -1,10 +1,24 @@
-import { DeviceEventEmitter, Text, TouchableOpacity, StyleSheet, View} from 'react-native';
+import { DeviceEventEmitter, Alert, TouchableOpacity, StyleSheet, View} from 'react-native';
 import React from 'react';
 
 export default ExerciseList = ({exerciseList}) => {
 
     const deleteHandler = (index) => {
-        DeviceEventEmitter.emit("event.removeExercise", {index});
+        Alert.alert('Delete', "Are you sure you wish to delete this item?", [
+            {
+                text: "Cancel",
+                onPress: () => {
+                    console.log('Cancel Pressed');
+                }
+            },
+            {
+                text: "Ok",
+                onPress: () => {
+                    console.log(`Delete Pressed for index ${index}`)
+                    DeviceEventEmitter.emit("event.removeExercise", {index});
+                }
+            }
+        ])
     }
 
     return (
@@ -15,7 +29,7 @@ export default ExerciseList = ({exerciseList}) => {
                 <>   
                     { exerciseList.map( (exercise, index) => {
                         return (
-                            <TouchableOpacity style={styles.dataRow} key={index} onPress={()=> deleteHandler(index)}>
+                            <TouchableOpacity key={index} onPress={()=> deleteHandler(index)}>
                                 <ExerciseItem currentExercise={exercise}/>
                             </TouchableOpacity>
                         )

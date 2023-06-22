@@ -2,7 +2,6 @@ import { Text, TouchableOpacity, StyleSheet, View} from 'react-native';
 import React from 'react';
 
 export default SetList = ({setList}) => {
-    console.log(setList);
     return (
         <View style={styles.container}>
             { setList.length == 0 ? (
@@ -53,7 +52,6 @@ export default SetList = ({setList}) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         paddingBottom: 20

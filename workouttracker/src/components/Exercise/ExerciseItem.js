@@ -1,42 +1,45 @@
 import { Card } from 'react-native-elements'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-elements';
 import SetList from '../Set/SetList';
 
-export default ExerciseItem = (currentExercise) => 
+export default ExerciseItem = ({currentExercise}) => 
 {
     const {name, muscleGroup, notes, setList} = currentExercise;
 
-    console.log(setList);
-
     return (
-        <Card>
+        <Card style={styles.card}>
             <Card.Title>{name}</Card.Title>
             <Card.Divider/>
             {
                 <View style={styles.exerciseSection}>
-                    <View style={styles.dataRow}>
-                        <View style={styles.headerCol}>
-                            <Text>Muscle Group</Text>
+                    <View style={styles.dataGroup}>
+                        <View>
+                            <Text h4>Muscle Group</Text>
                         </View>
-                        <View style={styles.dataCol}>
+                        <View>
                             <Text>{muscleGroup}</Text>
                         </View>
                     </View>
-                    <View style={styles.dataRow}>
-                        <View style={styles.headerCol}>
-                            <Text>Notes</Text>
+                    <View style={styles.dataGroup}>
+                        <View>
+                            <Text h4>Notes</Text>
                         </View>
-                        <View style={styles.dataCol}>
+                        <View>
                             <Text>{notes}</Text>
                         </View>
                     </View>
-                    <View style={styles.dataRow}>
-                        <View style={styles.headerCol}>
-                            <Text>Set List</Text>
+                    <View style={styles.dataGroup}>
+                        <View>
+                            <Text h4>Set List</Text>
                         </View>
-                        {/* <View style={styles.dataCol}>
-                            <SetList setList={setList}/>
-                        </View> */}
+                        <View>
+                            {setList.length == 0 ? (
+                                <Text>No Set List Defined</Text>
+                            ): (
+                                <SetList setList={setList}/>
+                            )}
+                        </View>
                     </View>
                 </View>
             }
@@ -45,21 +48,7 @@ export default ExerciseItem = (currentExercise) =>
 }
 
 const styles = StyleSheet.create({
-    dataRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        width: "80%",
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderRadius: 5
-    },
-    headerCol: {
-        width: "25%",
-        fontWeight: 'bold',
-        textAlign: 'left'
-    },
-    dataCol: {
-        width: "75%",
+    dataGroup: {
+        paddingBottom: 10
     }
 })
