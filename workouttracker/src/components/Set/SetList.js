@@ -1,8 +1,8 @@
 import { Text, TouchableOpacity, StyleSheet, View} from 'react-native';
 import React from 'react';
 
-export default SetList = ({setList, deleteHandler}) => {
-
+export default SetList = ({setList}) => {
+    console.log(setList);
     return (
         <View style={styles.container}>
             { setList.length == 0 ? (
@@ -27,7 +27,7 @@ export default SetList = ({setList, deleteHandler}) => {
                     </View>
                     { setList.map( (set, index) => {
                         return (
-                            <TouchableOpacity style={styles.dataRow} key={index} onPress={()=> deleteHandler(index)}>
+                            <TouchableOpacity style={styles.dataRow} key={index}>
                                 { set.weight ? (
                                     <>
                                         <View style={styles.setCol}>

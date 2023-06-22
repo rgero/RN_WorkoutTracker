@@ -5,11 +5,11 @@ import { DeviceEventEmitter, StyleSheet } from 'react-native';
 import ExerciseForm from '../../components/Exercise/ExerciseForm';
 import { Button } from 'react-native-elements';
 
-const AddExerciseScreen = ({navigation, route}) => {
+const AddExerciseScreen = ({navigation}) => {
 
     const addHandler = (newExercise) => {
         DeviceEventEmitter.emit("event.addExercise", {newExercise});
-        navigation.goBack(null);
+        navigation.goBack();
     }
 
     return (

@@ -2,8 +2,12 @@ import { Card } from 'react-native-elements'
 import { StyleSheet, Text, View } from 'react-native';
 import SetList from '../Set/SetList';
 
-export default ExerciseItem = ({name, muscleGroup, notes, setList, id, deleteItem}) => 
+export default ExerciseItem = (currentExercise) => 
 {
+    const {name, muscleGroup, notes, setList} = currentExercise;
+
+    console.log(setList);
+
     return (
         <Card>
             <Card.Title>{name}</Card.Title>
@@ -30,9 +34,9 @@ export default ExerciseItem = ({name, muscleGroup, notes, setList, id, deleteIte
                         <View style={styles.headerCol}>
                             <Text>Set List</Text>
                         </View>
-                        <View style={styles.dataCol}>
+                        {/* <View style={styles.dataCol}>
                             <SetList setList={setList}/>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             }
@@ -57,9 +61,5 @@ const styles = StyleSheet.create({
     },
     dataCol: {
         width: "75%",
-    },
-    exerciseSection: {
-        flex: 1,
-        alignItems: 'center'
     }
 })
