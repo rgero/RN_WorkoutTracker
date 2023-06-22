@@ -1,21 +1,21 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { DeviceEventEmitter, StyleSheet } from 'react-native';
 
 import ExerciseForm from '../../components/Exercise/ExerciseForm';
+import { Button } from 'react-native-elements';
 
-const AddExerciseScreen = ({route}) => {
-    const navigation = useNavigation();
+const AddExerciseScreen = ({navigation, route}) => {
 
     const addHandler = (newExercise) => {
-        route.params["onSubmit"](newExercise);
-        navigation.goBack();
+        DeviceEventEmitter.emit("event.addExercise", {newExercise});
+        navigation.goBack(null);
     }
 
     return (
         <SafeAreaView forceInset={{ top: 'always' }} style={styles.safeArea}>
-            <ExerciseForm onSubmit={addHandler}/>
+            <ExerciseForm onSubmit={addHandler} />
+            <Button title={"Cancel"} onPress={()=> navigation.goBack()}/>
         </SafeAreaView>
     )
 }

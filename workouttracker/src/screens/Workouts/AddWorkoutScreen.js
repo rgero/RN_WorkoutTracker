@@ -1,22 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Text, StyleSheet} from 'react-native';
+import {DeviceEventEmitter} from 'react-native';
+
+import { Button } from 'react-native-elements';
 
 import { ScreenStyles } from '../../styles/ScreenStyles';
-import ExerciseForm from '../../components/Exercise/ExerciseForm';
 
-const AddWorkoutScreen = () => {
+const AddWorkoutScreen = ({navigation}) => {
 
-    let todaysDate = new Date();
-    const [date, setDate] = useState(todaysDate.toLocaleDateString())
-    const [startTime, setStartTime] = useState(todaysDate.getTime()); // Replace this so it's a comprehendable string.
-    const [endTime, setEndTime] = useState("");
-    const [notes, setNotes] = useState("");
-    const [exerciseList, setExerciseList] = useState([]);
-    
+    DeviceEventEmitter.addListener("event.addExercise", (eventData) => addExercise(eventData));
+
+    const addExercise = () => {
+        console.log("lol");
+    }
+
     return (
         <SafeAreaView forceInset={{ top: 'always' }} style={ScreenStyles.viewport}>
-            <ExerciseForm/>
+            <Button title={"Create Exercise"} onPress={() => {navigation.navigate("CreateWorkout", {screen: "AddExercise"})}}/>
+            <Button title={"Cancel"} onPress={()=> navigation.goBack()}/>
         </SafeAreaView>
     )
 }

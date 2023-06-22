@@ -10,6 +10,8 @@ import { Provider as WorkoutProvider, Context as WorkoutContext} from './src/con
 import AuthenticatedNavigator from './src/navigators/AuthenticatedNavigator';
 import LoginFlowNavigator from './src/navigators/LoginFlowNavigator';
 import ResolveAuthScreen from './src/screens/Authentication/ResolveAuthScreen';
+import WorkoutNavigator from './src/navigators/WorkoutNavigator';
+
 import { navigationRef } from './src/navigationRef';
 
 export default () => {
@@ -23,6 +25,7 @@ export default () => {
                         <Stack.Screen name="ResolveAuthentication" component={ResolveAuthScreen} options={{ headerShown: false}}/>
                         <Stack.Screen name="AuthenticatedFlow" component={AuthenticatedNavigator} options={{ headerShown: false}}/>
                         <Stack.Screen name="LoginFlow" component={LoginFlowNavigator} options={{ headerShown: false}}/>
+                        <Stack.Screen name="WorkoutFlow" component={WorkoutNavigator} options={{ headerShown: false}}/>
                 </Stack.Navigator>
                 </NavigationContainer>
             </WorkoutProvider>

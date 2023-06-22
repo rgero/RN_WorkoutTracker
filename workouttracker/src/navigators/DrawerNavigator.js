@@ -7,7 +7,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Context as AuthContext} from '../context/AuthContext';
 
 import WorkoutListScreen from '../screens/Workouts/WorkoutListScreen';
-import AddWorkoutScreen from '../screens/Workouts/AddWorkoutScreen';
+import WorkoutNavigator from './WorkoutNavigator';
 
 export default DrawerNavigator = () => {
   const {state, signOut} = React.useContext(AuthContext);
@@ -35,8 +35,8 @@ export default DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator drawerContent={props=> <CustomDrawerContent {...props}/>} defaultStatus="closed">
-      <Drawer.Screen name="View Workouts" component={WorkoutListScreen}/>
-      <Drawer.Screen name="Add Workout" component={AddWorkoutScreen}/>
+      <Drawer.Screen name="ViewWorkouts" component={WorkoutListScreen}  options={{ title: "View Workouts"}}/>
+      <Drawer.Screen name="CreateWorkout" component={WorkoutNavigator} options={{ title: "Create Workout"}}/>
     </Drawer.Navigator>
   )
 }

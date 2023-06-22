@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     safeArea: {
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        paddingBottom: 20
     },
     title: {
         paddingTop: 20
