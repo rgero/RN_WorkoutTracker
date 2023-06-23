@@ -23,11 +23,6 @@ const WorkoutListScreen = ({navigation}) => {
             }
         }
         
-        navigation.addListener('focus', async () => {
-            setLoaded(false);
-            await processWorkouts();
-        });
-
     }, [isLoaded]);
 
     return (

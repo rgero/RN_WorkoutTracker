@@ -6,6 +6,7 @@ import {DeviceEventEmitter, ScrollView, StyleSheet, TextInput, View} from 'react
 import { ScreenStyles } from '../../styles/ScreenStyles';
 import ExerciseList from '../../components/Exercise/ExerciseList';
 import DateFormatter from '../../components/helpers/DateFormatter';
+import {Context as WorkoutContext} from '../../context/WorkoutContext';
 
 const AddWorkoutScreen = ({navigation}) => {
     DeviceEventEmitter.addListener("event.addExercise", (eventData) => addExercise(eventData));
@@ -15,6 +16,8 @@ const AddWorkoutScreen = ({navigation}) => {
     const [workoutDate, setWorkoutDate] = React.useState( DateFormatter(new Date()));
     const [notes, setNotes] = React.useState("");
 
+    const {createWorkout} = React.useContext(WorkoutContext);
+
     const addExercise = ({newExercise}) => {
         setExerciseList([...exerciseList, newExercise])
     }
@@ -23,6 +26,17 @@ const AddWorkoutScreen = ({navigation}) => {
         let newExerciseList = exerciseList;
         newExerciseList.splice(index, 1);
         setExerciseList( [...newExerciseList] );
+    }
+
+    const processWorkout = () => {
+        let newWorkout = {
+            workoutDate: workoutDate,
+            notes: notes,
+            exerciseList: exerciseList
+        }
+
+        createWorkout(newWorkout);
+        navigation.navigate('Drawer', {screen: "ViewWorkouts"});
     }
 
     return (
@@ -66,7 +80,7 @@ const AddWorkoutScreen = ({navigation}) => {
                                 color="white"
                                 />
                             }
-                            onPress={()=> navigation.goBack()}
+                            onPress={processWorkout}
                             buttonStyle={{width: "75%",  borderRadius: 20}}
                         />
                     </View>

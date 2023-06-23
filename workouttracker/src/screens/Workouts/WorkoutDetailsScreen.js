@@ -39,7 +39,7 @@ const WorkoutDetailsScreen = ({navigation, route}) => {
                         renderItem={
                             ({item, index}) => {
                                 return (
-                                    <ExerciseItem name={item.name} muscleGroup={item.muscleGroup} setList={item.setList} notes={item.notes}/>
+                                    <ExerciseItem currentExercise={item}/>
                                 )
                             }
                         }
