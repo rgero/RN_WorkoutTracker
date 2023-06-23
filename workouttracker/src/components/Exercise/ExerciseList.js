@@ -1,4 +1,4 @@
-import { DeviceEventEmitter, Alert, TouchableOpacity, StyleSheet, View} from 'react-native';
+import { DeviceEventEmitter, Alert, TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
 export default ExerciseList = ({exerciseList}) => {
@@ -24,7 +24,7 @@ export default ExerciseList = ({exerciseList}) => {
     return (
         <View>
             { exerciseList.length == 0 ? (
-                null
+                <Text>There are no exercises defined</Text>
             ) : (
                 <>   
                     { exerciseList.map( (exercise, index) => {
@@ -39,30 +39,3 @@ export default ExerciseList = ({exerciseList}) => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingBottom: 20
-    },
-    dataRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        width: "80%",
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderRadius: 5
-    },
-    setCol: {
-        width: "50%",
-        textAlign: 'center'
-    },
-    setNoWeight: {
-        width: "100%",
-        justifyContent: 'center',
-        textAlign: 'center'
-    }
-});

@@ -1,15 +1,19 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {DeviceEventEmitter, StyleSheet, Text, View} from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import { Button, Icon, Text } from 'react-native-elements';
+import {DeviceEventEmitter, ScrollView, StyleSheet, TextInput, View} from 'react-native';
+
 import { ScreenStyles } from '../../styles/ScreenStyles';
 import ExerciseList from '../../components/Exercise/ExerciseList';
+import DateFormatter from '../../components/helpers/DateFormatter';
 
 const AddWorkoutScreen = ({navigation}) => {
     DeviceEventEmitter.addListener("event.addExercise", (eventData) => addExercise(eventData));
     DeviceEventEmitter.addListener("event.removeExercise", (eventData) => removeExercise(eventData));
 
     const [exerciseList, setExerciseList] = React.useState([]);
+    const [workoutDate, setWorkoutDate] = React.useState( DateFormatter(new Date()));
+    const [notes, setNotes] = React.useState("");
 
     const addExercise = ({newExercise}) => {
         setExerciseList([...exerciseList, newExercise])
@@ -23,46 +27,56 @@ const AddWorkoutScreen = ({navigation}) => {
 
     return (
         <SafeAreaView forceInset={{ top: 'always' }} style={ScreenStyles.viewport}>
-
-            <Text>{exerciseList.length}</Text>
-            <View style={{width: "100%"}}>
-                <ExerciseList exerciseList={exerciseList}/>
-            </View>
-            <Button title={"Create Exercise"} onPress={() => {navigation.navigate("CreateWorkout", {screen: "AddExercise"})}}/>
-            <View style={styles.submitRow}>
-                <View>
-                    <Button 
-                        title={"Cancel"} 
-                        onPress={()=> navigation.goBack()}
-                        buttonStyle={{width: "75%", backgroundColor: "red", borderRadius: 20}}
+            <ScrollView>
+                <View style={styles.inputContainer}>
+                    <Text h4 style={styles.title}>Workout Date</Text>
+                    <TextInput value={workoutDate} placeholder="Workout Date" 
+                            onChangeText={setWorkoutDate}
+                            style={styles.inputField}
+                            editable={false}
                     />
                 </View>
-                <View>
-                    <Button 
-                        title={"Submit"} 
-                        icon={
-                            <Icon
-                              name="save"
-                              size={25}
-                              color="white"
-                            />
-                        }
-                        onPress={()=> navigation.goBack()}
-                        buttonStyle={{width: "75%",  borderRadius: 20}}
+                <View style={styles.inputContainer}>
+                    <Text h4 style={styles.title}>Notes</Text>
+                    <TextInput value={notes} placeholder="Notes" 
+                            onChangeText={setNotes}
+                            style={styles.noteField}
                     />
                 </View>
-            </View>
-
-            
+                <View style={styles.inputContainer}>
+                    <Text h4 style={styles.title}>Exercise List</Text>
+                    <ExerciseList exerciseList={exerciseList} style={{paddingBottom: 10}}/>
+                </View>
+                <Button title={"Create Exercise"} onPress={() => {navigation.navigate("CreateWorkout", {screen: "AddExercise"})}}/>
+                <View style={styles.submitRow}>
+                    <View>
+                        <Button 
+                            title={"Cancel"} 
+                            onPress={()=> navigation.goBack()}
+                            buttonStyle={{width: "75%", backgroundColor: "red", borderRadius: 20}}
+                        />
+                    </View>
+                    <View>
+                        <Button 
+                            title={"Submit"} 
+                            icon={
+                                <Icon
+                                name="save"
+                                size={25}
+                                color="white"
+                                />
+                            }
+                            onPress={()=> navigation.goBack()}
+                            buttonStyle={{width: "75%",  borderRadius: 20}}
+                        />
+                    </View>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingBottom: 20
-    },
     submitRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -71,6 +85,30 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 10,
     },
+    inputField: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 20,
+        fontSize: 20,
+    },
+    noteField: {
+        height: 150,
+        paddingHorizontal: 20,
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: "grey",
+        fontSize: 20
+    },
+    safeArea: {
+        paddingHorizontal: 15,
+        paddingBottom: 20
+    },
+    inputContainer: {
+        paddingBottom: 15
+    }
+
 });
+
 
 export default AddWorkoutScreen
