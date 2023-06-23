@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
 import { Button, Text } from 'react-native-elements'
 import { Alert, ScrollView, StyleSheet, TextInput, View} from 'react-native';
-
-import Spacer from '../Spacer';
-
 import SetList from '../Set/SetList';
 import SetForm from '../Set/SetForm';
 
