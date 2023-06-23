@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text } from 'react-native-elements'
-import { FlatList } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 
 import WorkoutDisplayItem from '../../components/Workout/WorkoutDisplayItem';
 import Spacer from '../../components/Spacer';
@@ -11,7 +11,7 @@ import { SortWorkoutList } from '../../components/helpers/WorkoutListSorter';
 import { ScreenStyles } from '../../styles/ScreenStyles';
 
 const WorkoutListScreen = ({navigation}) => {
-    const {state, fetchWorkouts} = React.useContext(WorkoutContext);
+    const {state, deleteWorkout, fetchWorkouts} = React.useContext(WorkoutContext);
     const [isLoaded, setLoaded] = React.useState(false);
 
     React.useEffect(()=> {
@@ -22,18 +22,45 @@ const WorkoutListScreen = ({navigation}) => {
                 setLoaded(true);
             }
         }
-        
+        navigation.addListener('focus', async () => {
+            setLoaded(false);
+            await processWorkouts();
+        });
     }, [isLoaded]);
 
-    return (
-        <SafeAreaView forceInset={{ top: 'always' }} style={ScreenStyles.viewport}>
-        { isLoaded ? (
+    const deleteItem = async (id) => {
+        Alert.alert('Delete', "Are you sure you wish to delete this item?", [
+            {
+                text: "Cancel",
+                onPress: () => {
+                    console.log('Cancel Pressed');
+                }
+            },
+            {
+                text: "Ok",
+                onPress: async () => {
+                    console.log(`Delete Pressed for index ${id}`)
+                    await deleteWorkout(id)
+                }
+            }
+        ])
+    }
+
+    const getHeader = () => {
+        return (
             <>
                 <Text h2>Track your Workout!</Text>
                 <Spacer>
                     <Button title="Add a Workout" onPress={()=> {navigation.navigate("CreateWorkout", {screen: "Add Workout"})}} />
                 </Spacer>
-                <Spacer>
+            </>
+        )
+    }
+
+    return (
+        <SafeAreaView forceInset={{ top: 'always' }} style={ScreenStyles.viewport}>
+        { isLoaded ? (
+            <>
                     <FlatList data={SortWorkoutList(state)}
                         extraData={state}
                         keyExtractor={(workout) => {
@@ -45,13 +72,13 @@ const WorkoutListScreen = ({navigation}) => {
                             ({item, index}) => {
                                 return (
                                     <Spacer>
-                                        <WorkoutDisplayItem workout={item}/>
+                                        <WorkoutDisplayItem workout={item} deleteItem={deleteItem}/>
                                     </Spacer>
                                 )
                             }
                         }
+                        ListHeaderComponent={getHeader}
                     />
-                </Spacer>
             </>
             ) : ( null )}
         </SafeAreaView>

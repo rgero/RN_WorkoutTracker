@@ -15,7 +15,7 @@ const WorkoutDisplayItem = ({workout, deleteItem}) => {
     return (
         <TouchableOpacity onPress={displayWorkout} style={styles.displayItem}>
             <Text>{DateFormatter(workout.workoutDate)}</Text>
-            <TouchableOpacity onPress={()=> {deleteItem(id)}}>
+            <TouchableOpacity onPress={()=> {deleteItem(workout._id)}}>
                 <FontAwesome5 name="trash" size={30} color="black" style={styles.trash}/>
             </TouchableOpacity>
         </TouchableOpacity>
