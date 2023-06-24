@@ -1,11 +1,11 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Icon, Text } from 'react-native-elements';
+import moment from 'moment';
 import {DeviceEventEmitter, ScrollView, StyleSheet, TextInput, View} from 'react-native';
 
 import { ScreenStyles } from '../../styles/ScreenStyles';
 import ExerciseList from '../../components/Exercise/ExerciseList';
-import DateFormatter from '../../components/helpers/DateFormatter';
 import {Context as WorkoutContext} from '../../context/WorkoutContext';
 
 const AddWorkoutScreen = ({navigation}) => {
@@ -13,7 +13,7 @@ const AddWorkoutScreen = ({navigation}) => {
     DeviceEventEmitter.addListener("event.removeExercise", (eventData) => removeExercise(eventData));
 
     const [exerciseList, setExerciseList] = React.useState([]);
-    const [workoutDate, setWorkoutDate] = React.useState( DateFormatter(new Date()));
+    const [workoutDate, setWorkoutDate] = React.useState( new moment().format("YYYY-MM-DD"));
     const [notes, setNotes] = React.useState("");
 
     const {createWorkout} = React.useContext(WorkoutContext);

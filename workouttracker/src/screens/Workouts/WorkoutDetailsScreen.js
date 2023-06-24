@@ -2,8 +2,8 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text } from 'react-native-elements'
 import { FlatList, StyleSheet, View } from 'react-native';
+import moment from 'moment';
 
-import DateFormatter from '../../components/helpers/DateFormatter';
 import ExerciseItem from '../../components/Exercise/ExerciseItem';
 import { ScreenStyles } from '../../styles/ScreenStyles';
 
@@ -12,7 +12,7 @@ const WorkoutDetailsScreen = ({navigation, route}) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: true,
-            title: `Workout on ${DateFormatter(workout.workoutDate)}`
+            title: `Workout on ${moment(workout.workoutDate).format("YYYY-MM-DD")}`
         })
       }, [])
 
