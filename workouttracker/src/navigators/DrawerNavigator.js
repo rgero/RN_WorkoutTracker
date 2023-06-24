@@ -10,47 +10,51 @@ import WorkoutListScreen from '../screens/Workouts/WorkoutListScreen';
 import WorkoutNavigator from './WorkoutNavigator';
 
 export default DrawerNavigator = () => {
-  const {state, signOut} = React.useContext(AuthContext);
+    const {state, signOut} = React.useContext(AuthContext);
 
-  const CustomDrawerContent = (props) => {
+    const CustomDrawerContent = (props) => {
+        return (
+            <DrawerContentScrollView {...props} contentContainerStyle={styles.drawer}>
+                    <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
+                        { state.displayName ? (
+                            <View style={styles.displayName}>
+                                <DrawerItem label={state.displayName} />
+                                <Divider/>
+                            </View>
+                        ): (null)}
+                        <DrawerItemList {...props} />
+                    </SafeAreaView>
+                    <TouchableOpacity onPress={()=> {
+                        props.navigation.closeDrawer();
+                        signOut();
+                    }}>
+                        <View style={styles.item}>
+                            <Text style={styles.label}>Logout</Text>
+                        </View>
+                    </TouchableOpacity>
+            </DrawerContentScrollView>
+        );
+    }
+
+    const Drawer = createDrawerNavigator();
     return (
-      <DrawerContentScrollView {...props} contentContainerStyle={styles.drawer}>
-          <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-            { state.displayName ? (
-              <View style={styles.displayName}>
-                <DrawerItem label={state.displayName} />
-                <Divider/>
-              </View>
-            ): (null)}
-            <DrawerItemList {...props} />
-          </SafeAreaView>
-          <TouchableOpacity onPress={signOut}>
-            <View style={styles.item}>
-              <Text style={styles.label}>Logout</Text>
-            </View>
-          </TouchableOpacity>
-      </DrawerContentScrollView>
-    );
-  }
-  const Drawer = createDrawerNavigator();
-  return (
-    <Drawer.Navigator drawerContent={props=> <CustomDrawerContent {...props}/>} defaultStatus="closed">
-      <Drawer.Screen name="ViewWorkouts" component={WorkoutListScreen}  options={{ title: "View Workouts"}}/>
-      <Drawer.Screen name="CreateWorkout" component={WorkoutNavigator} options={{ title: "Create Workout"}}/>
-    </Drawer.Navigator>
-  )
+        <Drawer.Navigator drawerContent={props=> <CustomDrawerContent {...props}/>} defaultStatus="closed">
+            <Drawer.Screen name="ViewWorkouts" component={WorkoutListScreen}    options={{ title: "View Workouts"}}/>
+            <Drawer.Screen name="CreateWorkout" component={WorkoutNavigator} options={{ title: "Create Workout"}}/>
+        </Drawer.Navigator>
+    )
 }
 
 const styles = StyleSheet.create({
-  drawer: {flex: 1,  flexDirection: 'column', justifyContent: 'space-between' },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 15
-  },
-  label: {
-    margin: 16,
-    fontWeight: 'bold',
-    color: 'rgba(0, 0, 0, .87)',
-  },
+    drawer: {flex: 1,    flexDirection: 'column', justifyContent: 'space-between' },
+    item: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 15
+    },
+    label: {
+        margin: 16,
+        fontWeight: 'bold',
+        color: 'rgba(0, 0, 0, .87)',
+    },
 })
