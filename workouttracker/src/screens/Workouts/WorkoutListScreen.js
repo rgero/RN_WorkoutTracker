@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text } from 'react-native-elements'
-import { Alert, FlatList } from 'react-native';
+import { Alert, FlatList, View } from 'react-native';
 
 import WorkoutDisplayItem from '../../components/Workout/WorkoutDisplayItem';
 
 import {Context as WorkoutContext} from '../../context/WorkoutContext';
 import { SortWorkoutList } from '../../components/helpers/WorkoutListSorter';
-import { ScreenStyles } from '../../styles/ScreenStyles';
+import ScreenStyles from '../../styles/ScreenStyles';
 
 const WorkoutListScreen = ({navigation}) => {
     const {state, deleteWorkout, fetchWorkouts} = React.useContext(WorkoutContext);
@@ -48,8 +48,14 @@ const WorkoutListScreen = ({navigation}) => {
     const getHeader = () => {
         return (
             <>
-                <Text h2>Track your Workout!</Text>
-                <Button title="Add a Workout" onPress={()=> {navigation.navigate("CreateWorkout", {screen: "Add Workout"})}} />
+                <View>
+                    <Text h2>Track your Workout!</Text>
+                    <Button
+                        style={[ScreenStyles.wrapper, {paddingVertical: 25}]}
+                        title="Add a Workout" 
+                        onPress={()=> {navigation.navigate("CreateWorkout", {screen: "Add Workout"})}} 
+                    />
+                </View>
             </>
         )
     }
@@ -68,7 +74,9 @@ const WorkoutListScreen = ({navigation}) => {
                         renderItem={
                             ({item, index}) => {
                                 return (
-                                    <WorkoutDisplayItem workout={item} deleteItem={deleteItem}/>
+                                    <View style={[ScreenStyles.wrapper, ScreenStyles.listOption]}>
+                                        <WorkoutDisplayItem workout={item} deleteItem={deleteItem}/>
+                                    </View>
                                 )
                             }
                         }
@@ -78,7 +86,6 @@ const WorkoutListScreen = ({navigation}) => {
             ) : ( null )}
         </SafeAreaView>
     )
-
 }
 
 export default WorkoutListScreen
