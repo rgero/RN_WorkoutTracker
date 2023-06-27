@@ -4,7 +4,6 @@ import { Button, Text } from 'react-native-elements'
 import { Alert, FlatList } from 'react-native';
 
 import WorkoutDisplayItem from '../../components/Workout/WorkoutDisplayItem';
-import Spacer from '../../components/Spacer';
 
 import {Context as WorkoutContext} from '../../context/WorkoutContext';
 import { SortWorkoutList } from '../../components/helpers/WorkoutListSorter';
@@ -50,9 +49,7 @@ const WorkoutListScreen = ({navigation}) => {
         return (
             <>
                 <Text h2>Track your Workout!</Text>
-                <Spacer>
-                    <Button title="Add a Workout" onPress={()=> {navigation.navigate("CreateWorkout", {screen: "Add Workout"})}} />
-                </Spacer>
+                <Button title="Add a Workout" onPress={()=> {navigation.navigate("CreateWorkout", {screen: "Add Workout"})}} />
             </>
         )
     }
@@ -71,9 +68,7 @@ const WorkoutListScreen = ({navigation}) => {
                         renderItem={
                             ({item, index}) => {
                                 return (
-                                    <Spacer>
-                                        <WorkoutDisplayItem workout={item} deleteItem={deleteItem}/>
-                                    </Spacer>
+                                    <WorkoutDisplayItem workout={item} deleteItem={deleteItem}/>
                                 )
                             }
                         }
